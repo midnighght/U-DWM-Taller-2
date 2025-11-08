@@ -11,6 +11,7 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: reist
             MONGO_INITDB_ROOT_PASSWORD: password1234
+
     backend:
         build: ./backend
         container_name: backend
@@ -36,6 +37,7 @@ services:
             - backend
         networks:
             - app-network
+
     fastapi-weather:
         build: ./fast-api
         container_name: fast-api
@@ -57,11 +59,48 @@ services:
             - fastapi-weather
         networks:
             - app-network
+
+    mongodb-pokemon:
+        image: mongo:6.0
+        container_name: mongodb-pokemon
+        restart: unless-stopped
+        ports:
+            - "27018:27017"   # expuesto localmente en 27018 para pruebas
+        volumes:
+            - mongodb-pokemon-data:/data/db
+        networks:
+            - app-network
+
+    express-pokemon:
+        build: ./express-pokemon
+        container_name: express-pokemon
+        restart: unless-stopped
+        ports:
+            - "5001:5000"  # expone 5001 en host → 5000 en contenedor
+        env_file:
+            - ./express-pokemon/.env
+        depends_on:
+            - mongodb-pokemon
+        networks:
+            - app-network
+        # Para correr seed automáticamente descomenta esta línea:
+        # command: ["sh", "-c", "node seed.js && node server.js"]
+
+    frontend-pokemon:
+        build: ./frontend-pokemon
+        container_name: frontend-pokemon
+        restart: unless-stopped
+        ports:
+            - "8081:80"  # estará disponible en http://localhost:8081
+        depends_on:
+            - express-pokemon
+        networks:
+            - app-network
+
 volumes:
     mongodb:
+    mongodb-pokemon-data:
 
-# docker-compose down --volumes --rmi all
- 
 networks:
   app-network:
     driver: bridge
