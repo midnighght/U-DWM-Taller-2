@@ -36,6 +36,27 @@ services:
             - backend
         networks:
             - app-network
+    fastapi-weather:
+        build: ./fast-api
+        container_name: fast-api
+        restart: unless-stopped
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./fast-api/weather.db:/app/weather.db  # SQLite persistente
+        networks:
+            - app-network
+
+    frontend-puro:
+        build: ./frontend-fastapi
+        container_name: frontend-fastapi
+        restart: unless-stopped
+        ports:
+            - "8080:80"  # Tu nuevo frontend accesible en localhost:8080
+        depends_on:
+            - fastapi-weather
+        networks:
+            - app-network
 volumes:
     mongodb:
 

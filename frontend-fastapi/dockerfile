@@ -1,0 +1,3 @@
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+# Nginx ya expone 80 por defecto
