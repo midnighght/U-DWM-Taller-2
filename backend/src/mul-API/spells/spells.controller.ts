@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { SpellsService } from './spells.service';
+import { CreateSpellDto, UpdateSpellDto } from './dto/spell.dto';
 
 @Controller('spells')
 export class SpellsController {
-  constructor(private readonly spellsService: SpellsService) {}
+  constructor(private spellsService: SpellsService) {}
 
   @Get()
   getAll() {
@@ -11,8 +12,13 @@ export class SpellsController {
   }
 
   @Post()
-  create(@Body() data) {
-    return this.spellsService.create(data);
+  create(@Body() createSpellDto: CreateSpellDto) {
+    return this.spellsService.create(createSpellDto);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateSpellDto: UpdateSpellDto) {
+    return this.spellsService.update(id, updateSpellDto);
   }
 
   @Patch(':id/favorite')
