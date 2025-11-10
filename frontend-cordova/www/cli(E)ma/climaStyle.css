@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Fondo general */
+body {
+    background: #f8f7ff;
+}
+
+.tarjeta-clima {
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #9c89f0 0%, #d4cbf9 100%);
+    border: 1px solid rgba(156, 137, 240, 0.2);
+}
+
+.animacion-carga {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #9c89f0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: girar 1s linear infinite;
+    margin: 0 auto;
+    display: none;
+}
+
+@keyframes girar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.aparecer {
+    animation: aparecer 0.5s ease-out;
+}
+
+@keyframes aparecer {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.oculto {
+    display: none;
+}
+
+.boton-ciudad {
+    background: #f0edff;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    color: #6d5ba8;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+.boton-ciudad:hover {
+    background: #e3defa;
+    transform: translateY(-2px);
+    border-color: #9c89f0;
+    box-shadow: 0 5px 15px -5px rgba(156, 137, 240, 0.4);
+}
+
+.bg-white.bg-opacity-30 {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+@media (max-width: 768px) {
+    .tarjeta-clima {
+        margin: 0 -0.5rem;
+        border-radius: 1rem;
+    }
+    
+    .boton-ciudad {
+        padding: 0.75rem;
+    }
+}
+
+input:focus {
+    box-shadow: 0 0 0 3px rgba(156, 137, 240, 0.1);
+}
+
+button, .boton-ciudad, input {
+    transition: all 0.3s ease;
+}

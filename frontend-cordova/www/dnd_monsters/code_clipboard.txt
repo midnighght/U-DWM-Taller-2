@@ -1,0 +1,600 @@
+
+<SECTION text= "">
+<\SECTION>
+
+                        <!-- image: fill wrapper width, keep aspect ratio, cap height -->
+                        <!-- <img
+                        src="fallback_img.png"
+                        class="p-2 w-full h-auto aspect-square object-cover rounded-lg" 
+                        alt="monster img"
+                        /> -->
+
+
+
+            colors: {
+                transparent: 'transparent',
+                current: 'currentColor',
+                black: colors.black,
+                white: colors.white,
+                red: colors.red,
+                amber: colors.amber,
+                slate: colors.slate,
+            },
+
+    <button id="back-to-top" class="hidden fixed bottom-8 right-10 pt-[6px] pb-[10px] px-2 rounded-full 
+    bg-slate-700 hover:bg-midnight-800 shadow-md transition-opacity">
+        <h1 class="min-w-7 text-center text-xl font-bold text-amber-50">▲</h1>
+    </button>
+
+        <button id="back-to-top" class="fixed bottom-8 right-10 pt-[6px] pb-[10px] min-w-11 rounded-full 
+    text-center text-xl font-bold text-amber-100 bg-indigo-900 hover:bg-midnight-700 shadow-md 
+    border-4 border-double border-amber-100
+    pointer-events-none transition-opacity opacity-0 duration-300 ease-in-out">
+        ▲
+    </button>
+
+
+        <div class="flex flex-row pt-4 mx-6 justify-between items-center">
+        <!-- Back to Menu Button: aligned left -->
+        <div class="text-left text-white min-w-32">
+            <button id="back-to-menu"
+                onclick="window.location.href='../index.html'"
+                class="flex items-center gap-2 min-h-11 px-4 rounded-full 
+                bg-indigo-900 hover:bg-midnight-700 shadow-md">
+                <span class="text-xl font-bold text-amber-100 font-mono">◀</span>
+                <span class="text-xl font-bold text-amber-100 pb-1">ᴍᴇɴᴜ</span>
+            </button>
+        </div>
+        <!-- Headers: centered to the parent, not just its own width -->
+        <div>
+            <h2 class="text-center text-2xl font-bold   text-red-800">Dungeons & Dragons</h2>
+            <h3 class="text-center text-lg              text-ochre"><i>5th Edition</i></h3>
+        </div>
+        <div class="min-w-32"></div>
+    </div>
+    <h1 class="text-center text-4xl font-bold   text-midnight-600 my-2">Monster Statblocks</h1>
+
+
+----------------------------------------------------------------------------------------
+            <button id="back-to-menu"
+                onclick="window.location.href='../index.html'"
+                class="flex items-center gap-2 min-h-12 px-4 rounded-full 
+                bg-indigo-900 hover:bg-midnight-700
+                border-4 border-slate-500 shadow-md shadow-midnight-800">
+                <span class="text-xl font-bold text-amber-100 font-mono">◀</span>
+                <span class="text-xl font-bold text-amber-100 pb-[5px]">ᴍᴇɴᴜ</span>
+            </button>
+
+    <button id="back-to-top" class="fixed bottom-8 right-10 pt-1 pb-2 min-w-12 rounded-full 
+    text-center text-xl font-bold text-amber-100 bg-indigo-900 hover:bg-midnight-700  
+    border-4 border-slate-500 shadow-md shadow-midnight-800
+    pointer-events-none transition-opacity opacity-0 duration-300 ease-in-out">
+        ▲
+    </button>
+
+# --- HTML Snippets ---
+<SECTION text= "HTML no prefab (empty)">
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>DND 5e MONSTERS</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="h-screen bg-blue-100">
+      <h2 class="text-center text-2xl font-bold text-blue-600">Dungeons & Dragons</h2>
+      <h3 class="text-center text-xl text-blue-300"><i>5th Edition</i></h3>
+      <h1 class="text-center text-4xl font-bold text-blue-800">Monsters</h1>
+
+      <div id="statblock-container" class="grid md:grid-cols-7  2xl: gap-4 md:gap-4 auto-rows-min justify-center ">
+
+
+          <div id="card-prefab">
+
+              <!-- Implement prefab here -->
+
+          </div>
+
+      </div>
+      <script src="dnd5eAPI.js"> </script>
+  </body>
+<\SECTION>
+
+<SECTION text= "prefab old version? not sure">
+
+  <!-- Prefab -->
+  <div id="statblock-prefab" class="stat-block" style="display:none">
+    <hr class="orange-border" />
+    <div class="section-left">
+      <div class="creature-heading">
+        <h1>Monster Name</h1>
+        <h2>Size Type, Alignment</h2>
+      </div>
+      <svg height="5" width="100%" class="tapered-rule">
+        <polyline points="0,0 400,2.5 0,5"></polyline>
+      </svg>
+
+      <div class="top-stats">
+        <div class="property-line first">
+          <h4>Armor Class</h4>
+          <p>—</p>
+        </div>
+        <div class="property-line">
+          <h4>Hit Points</h4>
+          <p>—</p>
+        </div>
+        <div class="property-line last">
+          <h4>Speed</h4>
+          <p>—</p>
+        </div>
+
+        <svg height="5" width="100%" class="tapered-rule">
+          <polyline points="0,0 400,2.5 0,5"></polyline>
+        </svg>
+
+        <div class="abilities">
+          <div class="ability-strength"><h4>STR</h4><p>—</p></div>
+          <div class="ability-dexterity"><h4>DEX</h4><p>—</p></div>
+          <div class="ability-constitution"><h4>CON</h4><p>—</p></div>
+          <div class="ability-intelligence"><h4>INT</h4><p>—</p></div>
+          <div class="ability-wisdom"><h4>WIS</h4><p>—</p></div>
+          <div class="ability-charisma"><h4>CHA</h4><p>—</p></div>
+        </div>
+
+        <svg height="5" width="100%" class="tapered-rule">
+          <polyline points="0,0 400,2.5 0,5"></polyline>
+        </svg>
+
+        <div class="property-line first">
+          <h4>Damage Immunities</h4>
+          <p>—</p>
+        </div>
+        <div class="property-line">
+          <h4>Condition Immunities</h4>
+          <p>—</p>
+        </div>
+        <div class="property-line">
+          <h4>Senses</h4>
+          <p>—</p>
+        </div>
+        <div class="property-line">
+          <h4>Languages</h4>
+          <p>—</p>
+        </div>
+        <div class="property-line last">
+          <h4>Challenge</h4>
+          <p>—</p>
+        </div>
+      </div>
+    </div>
+    <hr class="orange-border bottom" />
+  </div>
+<\SECTION>
+
+<SECTION text= "Prefab with colors for debugging">
+
+                  <div class="flex flex-row gap-4"> <!-- horizontal -->
+                    <img src="Pokeball-PNG-Image-Background-159933909.png"
+                        alt="monster img" 
+                        class="basis-3/4 h-auto aspect-square object-contain">
+
+                    <div class="flex flex-col gap-2 basis-1/4"> <!-- vertical -->
+                        <div class="flex flex-col flex-1 p-2 bg-pink-200">B1</div>
+                        <div class="flex flex-col flex-1 p-2 bg-pink-200">B2</div>
+                        <div class="flex flex-col flex-1 p-2 bg-pink-200">B3</div>
+                    </div>
+                </div>
+
+
+                
+                <!-- Middle section with image and AC, Speed, CR -->
+                <!-- Responsive: stacks on small screens, side-by-side on lg+ -->
+                <div class="flex flex-col lg:flex-row w-full gap-4 items-stretch">
+                    <!-- Image wrapper: full width on small, 3/4 on lg+ -->
+                    <div class="w-full lg:w-3/4 flex-shrink-0">
+                        <!-- image: fill wrapper width, keep aspect ratio, cap height -->
+                        <img
+                        src="Pokeball-PNG-Image-Background-159933909.png"
+                        alt="monster img"
+                        class="p-2 w-full h-auto object-contain rounded-lg" 
+                        /> <!-- max-h-[420px] -->
+                    </div>
+
+                    <!-- Sidebar: full width on small, 1/4 on lg+, allow shrinking with min-w-0 -->
+                    <div class="w-full lg:py-2 lg:w-1/4 min-w-0 flex flex-row lg:flex-col gap-2">
+                        <div class="flex-1 p-2 bg-pink-200">B1</div>
+                        <div class="flex-1 p-2 bg-pink-200">B2</div>
+                        <div class="flex-1 p-2 bg-pink-200">B3</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-row gap-2 px-2"> <!-- horizontal -->
+                    <div class="flex flex-col flex-1 bg-purple-200">
+                        <h2 class="text-center text-amber-50 text-l font-bold bg-green-300">STR</h2>
+                        <h1 class="text-center text-amber-50 text-l bg-green-300">mod</h1>
+                        <h3 class="text-center text-amber-50 bg-green-300">stat</h3>
+                    </div>
+                    <div class="flex flex-col flex-1 bg-purple-200">
+                        <h2 class="text-center text-amber-50 text-l font-bold bg-green-300">DEX</h2>
+                        <h1 class="text-center text-amber-50 text-l bg-green-300">mod</h1>
+                        <h3 class="text-center text-amber-50 bg-green-300">stat</h3>
+                    </div>
+                    <div class="flex flex-col flex-1 bg-purple-200">
+                        <h2 class="text-center text-amber-50 text-l font-bold bg-green-300">CON</h2>
+                        <h1 class="text-center text-amber-50 text-l bg-green-300">mod</h1>
+                        <h3 class="text-center text-amber-50 bg-green-300">stat</h3>
+                    </div>
+                    <div class="flex flex-col flex-1 bg-purple-200">
+                        <h2 class="text-center text-amber-50 text-l font-bold bg-green-300">INT</h2>
+                        <h1 class="text-center text-amber-50 text-l bg-green-300">mod</h1>
+                        <h3 class="text-center text-amber-50 bg-green-300">stat</h3>
+                    </div>
+                    <div class="flex flex-col flex-1 bg-purple-200">
+                        <h2 class="text-center text-amber-50 text-l font-bold bg-green-300">WIS</h2>
+                        <h1 class="text-center text-amber-50 text-l bg-green-300">mod</h1>
+                        <h3 class="text-center text-amber-50 bg-green-300">stat</h3>
+                    </div>
+                    <div class="flex flex-col flex-1 bg-purple-200">
+                        <h2 class="text-center text-amber-50 text-l font-bold bg-green-300">CHA</h2>
+                        <h1 class="text-center text-amber-50 text-l bg-green-300">mod</h1>
+                        <h3 class="text-center text-amber-50 bg-green-300">stat</h3>
+                    </div>
+                </div>
+<\SECTION>
+
+# --- NO LAZY LOADING IMAGE LOADING ---
+<SECTION text= "">
+      // Big image (use API image if available, else fallback)
+      const baseUrl = "https://www.dnd5eapi.co";
+      const fallbackImg = "fallback_img.png";
+      const imgEl = clone.querySelector("img.p-2");
+      if (imgEl) {
+        if (data.image) {
+          imgEl.src = baseUrl + data.image;
+        } else {
+          imgEl.src = fallbackImg;
+        }
+
+        // Extra safety: if loading fails (404), switch to fallback
+        imgEl.onerror = () => {
+          imgEl.src = fallbackImg;
+        };
+      }
+<\SECTION>
+
+# --- OLD OBSERVER ---
+<SECTION text= "">
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;  // swap in the real image
+        img.onload = () => img.classList.add("loaded"); // optional fade-in
+        img.addEventListener("load", () => {
+          img.classList.add("opacity-100");
+        });
+        obs.unobserve(img);         // stop watching once loaded
+      }
+    });
+  }, {
+    rootMargin: "100px" // preload before it actually appears
+  });
+<\SECTION>
+
+# --- BATCH FUNC ---
+// Step 2: Fetch the next batch of details
+async function appendNextBatch() {
+    const nextBatch = monstersList.slice(currentIndex, currentIndex + batchSize);
+
+    const batchDetails = await Promise.all(
+        nextBatch.map(async m => {
+            const detailRes = await fetch("https://www.dnd5eapi.co" + m.url);
+            return await detailRes.json();
+        })
+    );
+
+    monsters.push(...batchDetails);
+    currentIndex += batchSize;
+
+    return batchDetails; // optional, in case you want to render immediately
+}
+
+# --- EXAMPLE STATBLOCK STYLING ---
+<SECTION text= "--- HTML ---">
+
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <div class="stat-block">
+    <hr class="orange-border" />
+    <div class="section-left">
+      <div class="creature-heading">
+        <h1>Animated Armor</h1>
+        <h2>Medium construct, unaligned</h2>
+      </div> <!-- creature heading -->
+      <svg height="5" width="100%" class="tapered-rule">
+        <polyline points="0,0 400,2.5 0,5"></polyline>
+      </svg>
+      <div class="top-stats">
+        <div class="property-line first">
+          <h4>Armor Class</h4>
+          <p>18 (natural armor)</p>
+        </div> <!-- property line -->
+        <div class="property-line">
+          <h4>Hit Points</h4>
+          <p>33 (6d8 + 6)</p>
+        </div> <!-- property line -->
+        <div class="property-line last">
+          <h4>Speed</h4>
+          <p>25ft.</p>
+        </div> <!-- property line -->
+        <svg height="5" width="100%" class="tapered-rule">
+        <polyline points="0,0 400,2.5 0,5"></polyline>
+      </svg>
+        <div class="abilities">
+          <div class="ability-strength">
+            <h4>STR</h4>
+            <p>14 (+2)</p>
+          </div> <!-- ability strength -->
+          <div class="ability-dexterity">
+            <h4>DEX</h4>
+            <p>11 (+0)</p>
+          </div> <!-- ability dexterity -->
+          <div class="ability-constitution">
+            <h4>CON</h4>
+            <p>13 (+1)</p>
+          </div> <!-- ability constitution -->
+          <div class="ability-intelligence">
+            <h4>INT</h4>
+            <p>1 (-5)</p>
+          </div> <!-- ability intelligence -->
+          <div class="ability-wisdom">
+            <h4>WIS</h4>
+            <p>3 (-4)</p>
+          </div> <!-- ability wisdom -->
+          <div class="ability-charisma">
+            <h4>CHA</h4>
+            <p>1 (-5)</p>
+          </div> <!-- ability charisma -->
+        </div> <!-- abilities -->
+        <svg height="5" width="100%" class="tapered-rule">
+        <polyline points="0,0 400,2.5 0,5"></polyline>
+      </svg>
+        <div class="property-line first">
+          <h4>Damage Immunities</h4>
+          <p>poison, psychic</p>
+        </div> <!-- property line -->
+        <div class="property-line">
+          <h4>Condition Immunities</h4>
+          <p>blinded, charmed, deafened, exhaustion, frightened,
+              petrified, poisoned</p>
+        </div> <!-- property line -->
+        <div class="property-line">
+          <h4>Senses</h4>
+          <p>blindsight 60ft. (blind beyond this radius), passive Perception 6</p>
+        </div> <!-- property line -->
+        <div class="property-line">
+          <h4>Languages</h4>
+          <p>&mdash;</p>
+        </div> <!-- property line -->
+        <div class="property-line last">
+          <h4>Challenge</h4>
+          <p>1 (200 XP)</p>
+        </div> <!-- property line -->
+      </div> <!-- top stats -->
+    </div> <!-- section left -->
+    <hr class="orange-border bottom" />
+  </div> <!-- stat block -->
+<\SECTION>
+
+<SECTION text= "--- CSS ---">
+
+  body {
+    text-align: center;
+    font-size: 13.5px;
+    line-height: 1.2em;
+  }
+  body *{
+    box-sizing: border-box;
+    max-width: 100%;
+    font-family: 'Noto Sans', 'Myriad Pro', Calibri, Helvetica,
+      Arial, sans-serif;
+  }
+  .stat-block {
+    text-align: left;
+    margin: 20px;
+    display: inline-block;
+    vertical-align: top;
+    width: 17%;
+    min-width:280px;
+    background: #FDF1DC;
+    padding: 5px 10px 20px;
+    box-shadow: 0 0 1.5em #867453;
+  }
+  .stat-block.wide{
+    width: 46.5%;
+    min-width: 560px;
+    text-align: center;
+  }
+  .stat-block.wide .section-left,
+  .stat-block.wide .section-right{
+    display: inline-block;
+    vertical-align: top;
+    width: 48%;
+    text-align: left;
+  }
+  .stat-block.wide .section-left{
+    margin-right: 1.5%;
+  }
+  .stat-block.wide .section-right{
+    margin-left: 1.5%;
+  }
+  @media screen and (max-width: 675px){
+    .stat-block.wide{
+      min-width: 280px;
+    }
+    .stat-block.wide .section-left,
+    .stat-block.wide .section-right{
+      display: block;
+      width: 100%;
+    }
+    .stat-block.wide .section-left{
+      margin: 0;
+    }
+    .stat-block.wide .section-right{
+      margin: 0;
+    }
+  }
+  .orange-border{
+    display: block;
+    background: #E69A28;
+    border: 1px solid #000;
+    height: 5px;
+    padding: 0 10px 0;
+    margin: -10px -10px 0;
+    box-sizing: initial;
+  }
+  .orange-border.bottom{
+    margin: 15px -10px -20px;
+  }
+  .tapered-rule{
+    display: block;
+    width: 100%;
+    height: 5px;
+    border: none;
+    color: #922610;
+    fill: #922610;
+    stroke: #922610;
+  }
+  .creature-heading h1{
+    font-family: 'Libre Baskerville', 'Lora', 'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif;
+    color: #922610;
+    font-size: 23px;
+    line-height: 1.2em;
+    margin: 10px 0 0;
+    letter-spacing: 1px;
+    font-variant: small-caps;
+    font-weight: bold;
+  }
+  .creature-heading h2{
+    font-weight: normal;
+    font-style: italic;
+    font-size: 12px;
+    line-height: 1.2em;
+    margin: 0 0 10px;
+  }
+  .property-line h4,
+  .property-line p{
+    display: inline;
+    margin: 0;
+    color: #922610;
+    font-size: 13.5px;
+    line-height: 1.2em;
+  }
+  .property-line h4{
+    color: #7A200D;
+  }
+  .property-line{
+    text-indent: -1em;
+    padding-left: 1.1em;
+    line-height: 1.4em;
+  }
+  .property-line.first{
+    margin: 8px 0 0
+  }
+  .property-line.last{
+    margin: 0 0 10px;
+  }
+  .abilities{
+    text-align: center;
+    color: #922610;
+  }
+  .abilities > div{
+    display: inline-block;
+    vertical-align: middle;
+    width: 15.5%;
+    min-width: 40px; 
+    font-size: 12px;
+    line-height: 1em;
+  }
+  .abilities h4{
+    margin: 10px 0 2px;
+    font-size: 14px;
+    line-height: 1.2em;
+    text-transform: uppercase;
+    color: #7A200D;
+  }
+  .abilities p{
+    margin: 0 0 10px;
+    line-height: 1.2em;
+  }
+  .property-block h4,
+  .property-block p{
+    font-size: 13.5px;
+    line-height: 1.2em;
+    display: inline;
+    margin: 0;
+  }
+  .property-block h4{
+    font-style: italic;
+  }
+  .property-block{
+    padding: 10px 2px 0;
+  }
+  .actions h3{
+    border-bottom: 1px solid #7A200D;
+    color: #7A200D;
+    font-size: 21px;
+    font-variant: small-caps;
+    font-weight: normal;
+    letter-spacing: 1px;
+    margin: 20px 0 0;
+    padding: 0 0 10px;
+    text-indent: 5px;
+  }
+  .actions{
+    margin: 0 0 20px;
+  }
+  .actions:last-child{
+    margin: 0;
+  }
+
+  @media print{
+    .orange-border{
+      display: none;
+    }
+    .stat-block,
+    .stat-block.wide, 
+    .stat-block.wide .section-left,
+    .stat-block.wide .section-right,
+    .property-line,
+    .property-block{
+      width: 100%;
+      display: block;
+    }
+    .stat-block.wide .section-left{
+      margin: 0;
+    }
+    .stat-block.wide .section-right{
+      margin: 0;
+    }
+    .stat-block{
+      width: 40%;
+      display: inline-block;
+      vertical-align: top;
+    }
+    .stat-block.wide{
+      page-break-after: always;
+    }
+  }
+  @media screen and (max-width: 575px){
+    .stat-block{
+      margin: 20px 0;
+    }
+  }
+<\SECTION>
+

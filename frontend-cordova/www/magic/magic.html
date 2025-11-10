@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Magia El Encuentro</title>
+    <link rel="stylesheet" href="css\magic_style.output.css">
+    <link rel="icon" href="images\mtg.ico" type="image/x-icon">
+</head>
+<!--https://scryfall.com/docs/api/cards documentacion API-->
+<body class="bg-slate-900 text-white">
+    <div class="flex items-center justify-between gap-2 w-full px-4 py-2">
+    <img  src="images/img1.png" class= "w-[50px] h-[50px] rounded" alt="Inicio" id="logoInicio">
+    <div class="relative w-full max-w-md mx-auto mt-4 px-4">
+  <input type="text" id="searchInput" placeholder="Buscar carta..." class="w-full p-2 rounded border text-black bg-white" />
+  <ul id="suggestions" class="absolute top-full left-0 w-full bg-white text-black rounded shadow-md z-50 max-h-60 overflow-y-auto"></ul>
+</div>
+
+
+    <div class = "relative" id="menuContainer"
+    onclick=" toggleDropDown('dropDown')">
+    <button class="bg-yellow-400 text-black rounded px-3 py-2 border-solid">☰</button>
+        <div class = "rounded bg-slate-800 px-3 py-2 absolute hidden mt-2 transition duration-300 ease-in-out right-0 translate-x-[-20px]"
+        id="dropDown">
+            <ul class = "space-y-2">
+                <button onclick="event.stopPropagation(); toggleDropDown('formatos')"><a href="#" class="hover:underline">Formatos</a></button>
+                <ul id="formatos" class="hidden space-y-1 mt-1 ml-4">
+                    <li>
+                        <button class="hover:underline" onclick="escogerFormato('Standard')">Standard</button>
+                    </li>
+                    <li>
+                        <button class="hover:underline" onclick="escogerFormato('Pioneer')">Pioneer</button>
+                    </li>
+                    <li>
+                        <button class="hover:underline" onclick="escogerFormato('Modern')">Modern</button>
+                    </li>
+                    <li>
+                        <button class="hover:underline" onclick="escogerFormato('Legacy')">Legacy</button>
+                    </li>
+                </ul>
+                
+                <li><select onclick="event.stopPropagation()" id="ordenAlfabetico" class="p-2 rounded bg-white text-black overflow">
+                    <option value="" >Ordenar por nombre</option>
+                    <option value="az">A → Z</option>
+                    <option value="za">Z → A</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Filtros activos -->
+<div id="filtrosActivos" class="flex flex-wrap gap-2 mt-4 px-4">
+  <div class="text-slate-400 italic text-sm">No hay filtros activos</div>
+</div>
+
+    </div>
+   
+    <script src="magicApi.js"></script>
+</body>
+

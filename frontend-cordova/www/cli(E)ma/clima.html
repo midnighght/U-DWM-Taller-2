@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climita</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icvonos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilo pag -->
+    <link rel="stylesheet" href="climaStyle.css">
+    
+    <!-- Conf. colorsh -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primario: '#9c89f0',      // Lila suavecito
+                        secundario: '#b8a9f5',   // lila mas clarito
+                        peligro: '#ef4444',      // rojito para errores
+                        oscuro: '#6d5ba8',       // Morado oscuro medio suave
+                        claro: '#f8f7ff',        // blanco lila mas suave
+                        acento: '#d4cbf9'        // Lila pastel
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-claro min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center">
+                <i class="fas fa-cloud-moon text-primario text-2xl mr-2"></i>
+                <h1 class="text-xl font-bold text-oscuro">Climita</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Título -->
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-oscuro mb-2">Clima Ciudades del Mundo</h2>
+            <p class="text-lg text-oscuro opacity-70">Consulta el clima actual en cualquier ciudad del mundo</p>
+        </div>
+        <!-- Búsqueda -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 mb-8 border border-acento">
+            <div class="flex flex-col md:flex-row gap-4 items-center">
+                <div class="flex-grow">
+                    <input type="text" id="input-ciudad" placeholder="Ej: Santiago, Madrid, Tokyo..." 
+                        class="w-full px-4 py-3 rounded-xl border border-acento focus:outline-none focus:ring-2 focus:ring-primario text-oscuro placeholder-gray-400">
+                </div>
+                <button id="boton-buscar" class="px-6 py-3 bg-primario text-white rounded-xl font-medium hover:bg-secundario transition-colors flex items-center gap-2">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </div>
+        </div>
+        <!-- Resultados del clima -->
+        <div class="tarjeta-clima rounded-2xl text-white p-6 mb-8 shadow-lg">
+            <div id="resultado-clima" class="text-center">
+                
+                <!-- Circulod de carga -->
+                <div class="animacion-carga mb-4" id="cargando"></div>
+                
+                <!-- Mensaje inicial -->
+                <p id="mensaje-inicial" class="text-xl">Ingresa una ciudad para comenzar!!</p>
+                
+                <!-- Datos del clima -->
+                <div id="datos-clima" class="oculto aparecer">
+                    <h2 class="text-2xl font-bold mb-2" id="nombre-ciudad">Ciudad</h2>
+                    
+                    <div class="flex justify-center items-center my-4">
+                        <i id="icono-clima" class="fas fa-sun text-5xl text-yellow-200 mr-4"></i>
+                        <span class="text-4xl font-bold" id="temperatura">--°C</span>
+                    </div>
+                    
+                    <p class="text-xl mb-6" id="descripcion-clima">Descripción</p>
+                    
+                    <!-- recuadros de detalles cvlima-->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 justify-center">
+
+                        <div class="bg-white bg-opacity-30 rounded-xl p-4 backdrop-blur-sm">
+                            <p class="text-sm opacity-90">Sensación</p>
+                            <p class="text-xl font-semibold" id="sensacion-termica">--°C</p>
+                        </div>
+                        <div class="bg-white bg-opacity-30 rounded-xl p-4 backdrop-blur-sm">
+                            <p class="text-sm opacity-90">Humedad</p>
+                            <p class="text-xl font-semibold" id="humedad">--%</p>
+                        </div>
+                        <div class="bg-white bg-opacity-30 rounded-xl p-4 backdrop-blur-sm">
+                            <p class="text-sm opacity-90">Viento</p>
+                            <p class="text-xl font-semibold" id="viento">-- m/s</p>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- Mensaje para error -->
+                <div id="mensaje-error" class="oculto bg-peligro bg-opacity-90 text-white rounded-xl p-4 mt-4 shadow-lg">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="texto-error">Mensaje de error</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ciudades sugeridas mas polulares -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 border border-acento">
+            <h3 class="text-xl font-semibold text-oscuro mb-4">Ciudades Populares</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <button class="boton-ciudad" data-ciudad="Santiago">
+                    <i class="fas fa-mountain text-primario mr-2"></i> Santiago
+                </button>
+                <button class="boton-ciudad" data-ciudad="Madrid">
+                    <i class="fas fa-building text-primario mr-2"></i> Madrid
+                </button>
+                <button class="boton-ciudad" data-ciudad="Tokyo">
+                    <i class="fas fa-torii-gate text-primario mr-2"></i> Tokyo
+                </button>
+                <button class="boton-ciudad" data-ciudad="New York">
+                    <i class="fas fa-city text-primario mr-2"></i> New York
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="climaScript.js"></script>
+</body>
+</html>

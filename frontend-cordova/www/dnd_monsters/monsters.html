@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DND 5e MONSTERS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: {
+            screens: {
+                'tn': '384px',  //tiny: half of medium (custom)
+                'sm': '640px',
+                'md': '768px',
+                'lg': '1024px',
+                'xl': '1152px', //xl: three times tiny (modified)
+                '2xl': '1536px',
+                '3xl': '1920px',//3xl: five times tiny (custom)
+            },
+            extend: {
+                colors: {
+                    midnight: {
+                        50: '#c0c3c9',
+                        100: '#b7bcc7',
+                        200: '#a6aec3',
+                        300: '#909bbc',
+                        400: '#7782b5',
+                        500: '#626aac',
+                        600: '#4d50a0',
+                        700: '#40418c',
+                        800: '#363771',
+                        900: '#30325b',
+                        950: '#1c1c34',
+                    },
+                    ochre: '#814e16',
+                },
+            }
+        }}
+    </script>
+</head>
+
+<body class="h-screen bg-slate-950">
+    <div class="flex flex-row pt-4 mx-6 justify-between items-center">
+        <!-- Back to Menu Button: aligned left -->
+        <div class="text-left text-white min-w-32">
+            <button id="back-to-menu"
+                onclick="window.location.href='../index.html'"
+                class="flex items-center gap-2 min-h-10 px-4 rounded-full 
+                bg-indigo-900 hover:bg-midnight-700 shadow-md shadow-midnight-950/50">
+                <span class="text-xl font-bold text-amber-100 font-mono">◀</span>
+                <span class="text-xl font-bold text-amber-100 pb-[5px]">ᴍᴇɴᴜ</span>
+            </button>
+        </div>
+        <!-- Headers: centered to the parent, not just its own width -->
+        <div class="text-center">
+            <h2 class="text-2xl font-bold text-red-800">Dungeons & Dragons</h2>
+            <h3 class="text-lg font-semibold text-slate-600"><i>5th Edition</i></h3>
+        </div>
+        <div class="min-w-32"></div>
+    </div>
+
+    <h1 class="text-center text-4xl font-bold text-midnight-600 my-2">Monster Statblocks</h1>
+
+    <div class="mt-4 mx-6 border-4 border-midnight-950 rounded-full"></div> <!-- line separator -->
+
+    <div id="statblock-container" 
+        class="m-6 auto-rows-min grid gap-4 place-items-center
+            grid-cols-1
+            md:grid-cols-2
+            xl:grid-cols-3 
+            2xl:grid-cols-4 
+            3xl:grid-cols-5">
+
+        <div id="statblock-prefab" class="bg-slate-800 rounded shadow-md p-4 max-w-lg w-full hidden">
+            
+            <div class="flex flex-col gap-2"> <!-- vertical -->
+
+                <!-- Top section with name and tiny image -->
+                <div>
+                    <div class="flex mx-2 gap-2 justify-between">
+                        <!-- Text section -->
+                        <h1 class="text-2xl font-bold text-amber-100 py-1">
+                            Monster Name
+                        </h1>
+    
+                        <!-- Fixed-size image, aligned to first text line -->
+                        <div class="w-10 h-10 flex-shrink-0 align-top">
+                            <img 
+                                src="img/fallback_img.png" 
+                                alt="type_icon" 
+                                class="type-icon h-full object-cover rounded-full shadow-md shadow-midnight-950/50"
+                            />
+                        </div>
+                    </div>
+
+                    <h3 class="text-left mx-2 text-midnight-400 italic">Type, Size, Alignment</h3>
+
+                </div>
+
+                <!-- Middle section with image and AC, Speed, CR -->
+                <!-- Responsive: stacks on small screens, side-by-side on lg+ -->
+                <div class="flex flex-col lg:flex-row w-full gap-2 items-stretch">
+                    <!-- Image wrapper: full width on small, 4/5 on lg+ -->
+                    <div class="w-full lg:w-4/5 flex-shrink-0 p-2 overflow-hidden">
+                        <img
+                        data-src="img/loading_img.png"
+                        class="lazy-img 
+                        opacity-25 transition-opacity duration-500 ease-in-out 
+                        w-full h-auto aspect-square object-cover rounded-lg" 
+                        alt="monster_img"
+                        />
+                    </div>
+
+                    <!-- Sidebar: full width on small, 1/5 on lg+, allow shrinking with min-w-0 -->
+                    <div class="w-full lg:py-2 lg:w-1/5 min-w-0 flex flex-row lg:flex-col gap-2 text-center">
+                        <div class="flex-1">
+                            <h1 class="text-amber-100 text-lg mx-2 py-2 rounded-lg bg-slate-900">10</h1>
+                            <h1 class="text-midnight-400 text-xl font-bold">AC</h1>
+                        </div>
+
+                        <div class="flex-1">
+                            <h1 class="text-amber-100 text-lg mx-2 py-2 rounded-lg bg-slate-900">320</h1>
+                            <h1 class="text-midnight-400 text-xl font-bold">HP</h1>
+                        </div>
+
+                        <div class="flex-1">
+                            <h1 class="text-amber-100 text-lg mx-2 py-2 rounded-lg bg-slate-900">5</h1>
+                            <h1 class="text-midnight-400 text-xl font-bold">CR</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-2 mx-2 border-midnight-600 rounded-full"></div> <!-- line separator -->
+
+                <div class="flex flex-row gap-2 px-2 text-center"> <!-- horizontal -->
+                    <div class="flex flex-col flex-1">
+                        <h2 class="text-midnight-400 font-bold">STR</h2>
+                        <h1 class="text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</h1>
+                        <h3 class="text-amber-100">stat</h3>
+                    </div>
+                    <div class="flex flex-col flex-1">
+                        <h2 class="text-midnight-400 font-bold">DEX</h2>
+                        <h1 class="text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</h1>
+                        <h3 class="text-amber-100">stat</h3>
+                    </div>
+                    <div class="flex flex-col flex-1">
+                        <h2 class="text-midnight-400 font-bold">CON</h2>
+                        <h1 class="text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</h1>
+                        <h3 class="text-amber-100">stat</h3>
+                    </div>
+                    <div class="flex flex-col flex-1">
+                        <h2 class="text-midnight-400 font-bold">INT</h2>
+                        <h1 class="text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</h1>
+                        <h3 class="text-amber-100">stat</h3>
+                    </div>
+                    <div class="flex flex-col flex-1">
+                        <h2 class="text-midnight-400 font-bold">WIS</h2>
+                        <h1 class="text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</h1>
+                        <h3 class="text-amber-100">stat</h3>
+                    </div>
+                    <div class="flex flex-col flex-1">
+                        <h2 class="text-midnight-400 font-bold">CHA</h2>
+                        <h1 class="text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</h1>
+                        <h3 class="text-amber-100">stat</h3>
+                    </div>
+                </div>
+
+                <div class="border-2 mx-2 border-midnight-600 rounded-full"></div> <!-- white line separator -->
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Sentinel for lazy rendering -->
+    <div id="scroll-sentinel" class="flex h-16"></div>
+
+    <button id="back-to-top" class="fixed bottom-8 right-10 pt-[6px] pb-[10px] min-w-11 rounded-full 
+    text-center text-xl font-bold text-amber-100 bg-indigo-900 hover:bg-midnight-700  
+    shadow-md shadow-midnight-950/50
+    pointer-events-none transition-opacity opacity-0 duration-300 ease-in-out">
+        ▲
+    </button>
+
+    <script src="dnd5eAPI.js"> </script>
+</body>
+
+</html>
