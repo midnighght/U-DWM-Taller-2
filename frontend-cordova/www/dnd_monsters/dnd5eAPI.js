@@ -67,43 +67,35 @@ async function appendNextBatch() {
     
     // --- Fill prefab fields ---
     // Name
-    const nameEl = clone.querySelector("h1.text-2xl");
+    const nameEl = clone.querySelector("h1.monster-name");
     if (nameEl) nameEl.textContent = data.name;
 
     // Type, size, alignment
-    const typeEl = clone.querySelector("h3.italic");
+    const typeEl = clone.querySelector("h3.monster-type");
     if (typeEl) typeEl.textContent = `${capitalize(data.type)}, ${data.size}, ${data.alignment}`;
 
-    // AC
-    const acEl = clone.querySelector("div:nth-child(2) > div > h1.text-lg");
-    if (acEl) {
+
+    // Main stats: AC, HP, CR
+    const statBlocks = clone.querySelectorAll(".monster-main-stats .monster-stat-block");
+    if (statBlocks.length === 3) {
+      // AC
       let ac = data.armor_class;
-      acEl.textContent = Array.isArray(ac) ? ac[0].value : ac;
-    }
-
-    // HP
-    const hpEl = clone.querySelector("div:nth-child(2) > div:nth-child(2) > h1.text-lg");
-    if (hpEl) hpEl.textContent = data.hit_points;
-
-    // CR
-    const crEl = clone.querySelector("div:nth-child(2) > div:nth-child(3) > h1.text-lg");
-    if (crEl) {
+      statBlocks[0].querySelector(".stat-value").textContent = Array.isArray(ac) ? ac[0].value : ac;
+      // HP
+      statBlocks[1].querySelector(".stat-value").textContent = data.hit_points;
+      // CR
       let cr = data.challenge_rating;
-      const crMap = { // Map decimal CR to fraction CR (prettier)
-        0.5: "1/2",
-        0.25: "1/4",
-        0.125: "1/8"
-      };
-      crEl.textContent = crMap[cr] || cr; // fallback to raw number if not mapped
+      const crMap = { 0.5: "1/2", 0.25: "1/4", 0.125: "1/8" };
+      statBlocks[2].querySelector(".stat-value").textContent = crMap[cr] || cr;
     }
 
-    // Stats (STR, DEX, CON, INT, WIS, CHA)
+    // Ability scores: STR, DEX, CON, INT, WIS, CHA
     const stats = [data.strength, data.dexterity, data.constitution, data.intelligence, data.wisdom, data.charisma];
-    const statBlocks = clone.querySelectorAll(".flex.flex-col.flex-1");
-    statBlocks.forEach((block, i) => {
+    const abilityBlocks = clone.querySelectorAll(".monster-ability-scores .ability-score");
+    abilityBlocks.forEach((block, i) => {
       const mod = getModifier(stats[i]);
-      const modEl = block.querySelector("h1.text-lg");
-      const statEl = block.querySelector("h3");
+      const modEl = block.querySelector(".score-mod");
+      const statEl = block.querySelector(".score-stat");
       if (modEl) modEl.textContent = (mod >= 0 ? "+" : "") + mod;
       if (statEl) statEl.textContent = stats[i];
     });

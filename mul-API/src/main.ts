@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import { AppModule } from './app.module';
@@ -32,7 +33,10 @@ async function bootstrap() {
     }),
   });
 
-  app.setGlobalPrefix('api');
+  // Configurable API base path
+  const config = app.get(ConfigService);
+  const apiPrefix = config.get<string>('API_PREFIX') || 'mul-api';
+  app.setGlobalPrefix(apiPrefix);
   
   // Enable CORS
   app.enableCors({
@@ -50,4 +54,6 @@ async function bootstrap() {
   logger.log(`Backend running on http://localhost:${port}`);
 }
 
-bootstrap();
+bootstrap().catch(err => {
+  console.error('Failed to start application', err);
+});
