@@ -13,6 +13,12 @@ services:
             - ./mongo-init:/docker-entrypoint-initdb.d:ro
         networks:
             - app-network
+        healthcheck:
+            test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
 
     mul-api:
         build: ./mul-API
@@ -23,7 +29,8 @@ services:
         env_file:
             - ./mul-API/.env
         depends_on:
-            - mongodb
+            mongodb:
+                condition: service_healthy
         networks:
             - app-network
 
