@@ -7,7 +7,7 @@
     <title>Geek tangarine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="img/one-orange.png">
+    <link rel="icon" type="image/png" href="img/one-blueberry.png">
         <script>
         tailwind.config = { theme: {
             screens: {
@@ -20,25 +20,13 @@
             },
         }}
     </script>
-    <style>
-        body {
-            cursor: url("img/cursor-orange.png") 4 4, auto;
-        }
-
-        #buttons button:hover {
-            cursor: url("img/cursor-hover-orange.png") 4 4, pointer;
-        }
-  </style>
 </head>
 
-<body class="h-screen flex flex-col bg-[#1f2937] animate-bgMove" 
-      style="background-image: linear-gradient(rgba(20,30,45,0.4), rgba(20,30,45,0.4)), url('img/orange.png');">
-    
-    <div class=" glitch-bg">
-        <div class="glitch-bg-layer"></div>
-        <div class="glitch-bg-layer top"></div>
-        <div class="glitch-bg-layer bottom"></div>
-    </div>
+<body class="h-screen flex flex-col bg-[#1f1037] animate-bgMove" 
+      style="background-image: url('img/blueberry.png');">
+
+    <!-- Gradient background -->
+    <div class="fixed inset-0 -z-10" style="background-image: linear-gradient(rgba(20,30,45,0.8), rgba(20,30,45,0.4));"></div>
     
     <!-- Header -->
     <h1 class="text-center text-orange-100 font-bold text-4xl sm:text-5xl md:text-6xl
@@ -59,12 +47,12 @@
 
             <!-- Button content -->
             <div class="relative flex p-2 md:p-4">
-                <img src="./img/orange.png" alt="Logo" class="object-contain">
+                <img src="./img/blueberry.png" alt="Logo" class="object-contain">
             </div>
         </button>
         
-        <!-- POKEDEX -->
-        <button onclick="window.location.href='pokedex/poke.html'" 
+        <!-- NEST JS -->
+        <button onclick="window.location.href='dnd_monsters/poke.html'" 
             class="relative group overflow-hidden flex justify-center
             h-24 sm:h-26 md:h-28 lg:h-30 xl:h-32
             rounded-lg bg-gradient-to-r from-orange-500 to-red-600">
@@ -74,27 +62,12 @@
 
             <!-- Button content -->
             <div class="relative flex p-2 md:p-4">
-                <img src="./img/pokedex.png" alt="Pokedex Logo" class="object-contain">
+                <img src="./img/nest-js.png" alt="Pokedex Logo" class="object-contain">
             </div>
         </button>
 
-        <!-- MAGIC -->
-        <button onclick="window.location.href='magic/magic.html'" 
-            class="relative group overflow-hidden flex justify-center
-            h-24 sm:h-26 md:h-28 lg:h-30 xl:h-32
-            rounded-lg bg-gradient-to-r from-[#56b8b8] from-0% via-[#a34f94] via-50% to-[#bc2d29] to-100%">
-
-            <!-- Solid overlay that fades out -->
-            <div class="absolute inset-0 bg-[#1f2937] transition-opacity duration-200 ease-in-out group-hover:opacity-0"></div>
-
-            <!-- Button content -->
-            <div class="relative flex p-2 md:p-4">
-                <img src="./img/magic.png" alt="Magic Logo" class="object-contain">
-            </div>
-        </button>
-
-        <!-- DND MONSTERS -->
-        <button onclick="window.location.href='dnd_monsters/monsters.html'" 
+        <!-- EXPRESS JS -->
+        <button onclick="window.location.href='/monsters.html'" 
             class="relative group overflow-hidden flex justify-center
             h-24 sm:h-26 md:h-28 lg:h-30 xl:h-32
             rounded-lg bg-gradient-to-r from-blue-900 to-cyan-700">
@@ -104,11 +77,11 @@
 
             <!-- Button content -->
             <div class="relative flex p-2 md:p-4">
-                <img src="./img/d&d.png" alt="D&D Logo" class="object-contain">
+                <img src="./img/express-js.png" alt="D&D Logo" class="object-contain">
             </div>
         </button>
 
-        <!-- CLIMA -->
+        <!-- FAST API -->
         <button onclick="window.location.href='clima-fastapi/index.html'"
             class="relative group overflow-hidden flex justify-center
             h-24 sm:h-26 md:h-28 lg:h-30 xl:h-32
@@ -119,7 +92,7 @@
 
             <!-- Button content -->
             <div class="relative flex p-2 md:p-4">
-                <img src="./img/openweather.png" alt="D&D Logo" class="object-contain">
+                <img src="./img/fast-api.png" alt="D&D Logo" class="object-contain">
             </div>
         </button>
 
@@ -130,177 +103,29 @@
         <p>By Ferran Rojas, Martin Ubilla, Maximo Sarno, and Emily Volta</p>
     </footer>
 
-    <!-- Custom CSS for animations and effects -->
-    <style>
-        @keyframes bgMove {
-            0% {
-                background-position: 0 0;
-            }
-
-            100% {
-                background-position: 0px 128px;
-            }
-        }
-
-        .animate-bgMove {
-            animation: bgMove 10s linear infinite;
-        }
-
-        :root {
-            --speed: 15s;
-            --speed-top: 10s;
-            --speed-bottom: 15s;
-        }
-
-        /* Glitch container for background */
-        .glitch-bg {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        /* Three layers for glitch effect */
-        .glitch-bg-layer {
-            position: absolute;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            /* background: url('img/orange.png') repeat; */
-            image-rendering: pixelated;
-            filter: drop-shadow(2px 0 #ff00c166) drop-shadow(-2px 0 #00f4ff66);
-            animation: glitch var(--speed) infinite;
-        }
-
-        .glitch-bg-layer.top {
-            filter: drop-shadow(5px 0 #081529);
-            background: url('img/orange.png');
-            
-            opacity: .6;
-            left: 20px;
-            animation: glitch-top var(--speed-top) infinite;
-        }
-
-        .glitch-bg-layer.bottom {
-            filter: drop-shadow(-5px 0 #081529);
-            background: url('img/orange.png');
-            opacity: 0.6;
-            left: 0px;
-            animation: glitch-bottom var(--speed-bottom) infinite;
-        }
-
-        @keyframes glitch {
-
-            0%,
-            100% {
-                transform: translate(0);
-            }
-
-            20%,
-            60% {
-                transform: translate(-2px, 2px);
-            }
-
-            40%,
-            80% {
-                transform: translate(2px, -2px);
-            }
-        }
-
-        @keyframes glitch-top {
-
-            0%,
-            100% {
-            clip-path: polygon(0 25%, 10% 20%, 20% 50%, 30% 15%, 40% 55%, 50% 20%, 60% 50%, 70% 25%, 80% 55%, 90% 20%, 100% 50%);
-            transform: perspective(800px) rotateY(-15deg) rotateX(12deg) scaleY(1.15) scaleX(1.1) translateY(0);
-            }
-
-            25% {
-            clip-path: polygon(0 50%, 10% 55%, 20% 25%, 30% 60%, 40% 20%, 50% 55%, 60% 25%, 70% 60%, 80% 20%, 90% 55%, 100% 25%);
-            transform: perspective(800px) rotateY(0deg) rotateX(16deg) scaleY(1.18) scaleX(1.1) translateY(32px);
-            }
-
-            50% {
-            clip-path: polygon(0 55%, 10% 25%, 20% 60%, 30% 20%, 40% 65%, 50% 25%, 60% 60%, 70% 20%, 80% 65%, 90% 25%, 100% 55%);
-            transform: perspective(800px) rotateY(15deg) rotateX(12deg) scaleY(1.15) scaleX(1.1) translateY(0);
-            }
-
-            75% {
-            clip-path: polygon(0 50%, 10% 55%, 20% 25%, 30% 60%, 40% 20%, 50% 55%, 60% 25%, 70% 60%, 80% 20%, 90% 55%, 100% 25%);
-            transform: perspective(800px) rotateY(0deg) rotateX(16deg) scaleY(1.18) scaleX(1.1) translateY(-32px);
-            }
-        }
-
-        @keyframes glitch-bottom {
-
-            0%,
-            100% {
-            clip-path: polygon(0 85%, 10% 80%, 20% 90%, 30% 75%, 40% 95%, 50% 80%, 60% 90%, 70% 85%, 80% 95%, 90% 80%, 100% 90%);
-            transform: perspective(800px) rotateY(15deg) rotateX(-12deg) scaleY(1.15) scaleX(1.1) translateY(0);
-            }
-
-            25% {
-            clip-path: polygon(0 90%, 10% 95%, 20% 85%, 30% 100%, 40% 80%, 50% 95%, 60% 85%, 70% 100%, 80% 80%, 90% 95%, 100% 85%);
-            transform: perspective(800px) rotateY(0deg) rotateX(-16deg) scaleY(1.18) scaleX(1.1) translateY(-32px);
-            }
-
-            50% {
-            clip-path: polygon(0 95%, 10% 85%, 20% 100%, 30% 80%, 40% 105%, 50% 85%, 60% 100%, 70% 80%, 80% 105%, 90% 85%, 100% 95%);
-            transform: perspective(800px) rotateY(-15deg) rotateX(-12deg) scaleY(1.15) scaleX(1.1) translateY(0);
-            }
-
-            75% {
-            clip-path: polygon(0 90%, 10% 95%, 20% 85%, 30% 100%, 40% 80%, 50% 95%, 60% 85%, 70% 100%, 80% 80%, 90% 95%, 100% 85%);
-            transform: perspective(800px) rotateY(0deg) rotateX(-16deg) scaleY(1.18) scaleX(1.1) translateY(32px);
-            }
-        }
-
-        /* 
-        body {
-            background: linear-gradient(135deg, #232526 0%, #485563 100%);
-            animation: retroGradient 8s ease-in-out infinite alternate;
-        } */
-
-        /* 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-            background: repeating-linear-gradient(to bottom,
-                    rgba(255, 255, 255, 0.03) 0px,
-                    rgba(255, 255, 255, 0.03) 1px,
-                    transparent 2px,
-                    transparent 4px);
-        } */
-        /* body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-            background: repeating-linear-gradient(to bottom,
-                    rgba(255, 255, 255, 0.03) 0px,
-                    rgba(255, 255, 255, 0.03) 1px,
-                    transparent 2px,
-                    transparent 4px);
-        }
-
-        @keyframes retroGradient {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            100% {
-                background-position: 100% 50%;
-            }
-        } */
-    </style>
-
 </body>
+
+<!-- Custom CSS for animations and effects -->
+<style>
+    @keyframes bgMove {
+        0% {
+            background-position: 0 0;
+        }
+
+        100% {
+            background-position: 0px 128px;
+        }
+    }
+
+    .animate-bgMove {
+        animation: bgMove 10s linear infinite;
+    }
+
+    :root {
+        --speed: 15s;
+        --speed-top: 10s;
+        --speed-bottom: 15s;
+    }
+</style>
 
 </html>
