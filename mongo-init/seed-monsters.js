@@ -65,3 +65,44 @@ if (count === 0) {
 } else {
 	print(`Collection '${collectionName}' already has ${count} documents. Skipping seed.`);
 }
+
+// ============================================
+// SEED POKEMON DATABASE
+// ============================================
+const pokeDbName = 'pokemon_db';
+const pokeCollectionName = 'pokemons';
+
+print(`\n=== Starting Pokemon DB seed ===`);
+const pokeDb = db.getSiblingDB(pokeDbName);
+print(`Switched to database: ${pokeDbName}`);
+
+// Create collection if missing
+if (!pokeDb.getCollectionNames().includes(pokeCollectionName)) {
+	print(`Creating collection: ${pokeCollectionName}`);
+	pokeDb.createCollection(pokeCollectionName);
+}
+
+// Ensure unique index on 'pokeId' field
+print(`Creating unique index on pokeId...`);
+pokeDb[pokeCollectionName].createIndex({ pokeId: 1 }, { unique: true });
+
+const pokeCount = pokeDb[pokeCollectionName].countDocuments();
+print(`Current document count: ${pokeCount}`);
+
+if (pokeCount === 0) {
+	print(`Seeding '${pokeCollectionName}' collection in '${pokeDbName}' database...`);
+	pokeDb[pokeCollectionName].insertMany([
+		{ pokeId: 1, name: "bulbasaur", types: ["grass","poison"], height: 7, weight: 69, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png", short: "Seed Pokémon" },
+		{ pokeId: 4, name: "charmander", types: ["fire"], height: 6, weight: 85, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png", short: "Lizard Pokémon" },
+		{ pokeId: 7, name: "squirtle", types: ["water"], height: 5, weight: 90, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png", short: "Tiny Turtle Pokémon" },
+		{ pokeId: 25, name: "pikachu", types: ["electric"], height: 4, weight: 60, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png", short: "Mouse Pokémon" },
+		{ pokeId: 39, name: "jigglypuff", types: ["normal","fairy"], height: 5, weight: 55, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png", short: "Balloon Pokémon" },
+		{ pokeId: 94, name: "gengar", types: ["ghost","poison"], height: 15, weight: 405, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png", short: "Shadow Pokémon" },
+		{ pokeId: 143, name: "snorlax", types: ["normal"], height: 21, weight: 4600, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png", short: "Sleeping Pokémon" },
+		{ pokeId: 150, name: "mewtwo", types: ["psychic"], height: 20, weight: 1220, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png", short: "Genetic Pokémon" }
+	]);
+	print('✅ Pokemon seed completed - 8 Pokemon inserted.');
+} else {
+	print(`⏭️  Collection '${pokeCollectionName}' already has ${pokeCount} documents. Skipping pokemon seed.`);
+}
+print(`=== Pokemon DB seed finished ===\n`);
