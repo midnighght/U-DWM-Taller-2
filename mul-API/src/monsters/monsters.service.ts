@@ -11,14 +11,20 @@ export class MonstersService {
 
 
   /*  Base GET: minimal list (index, name, url)  */
-  async getAll(): Promise<Array<{ index: string; name: string; url: string }>> {
+  async getAll(): Promise<Array<{ index: string; name: string; url: string; favorite: boolean }>> {
     const docs = await this.monsterModel
-      .find({}, 'index name url -_id')
+      .find({})
+      .select('index name url favorite -_id')
       .lean()
       .exec();
-    return (docs as any[]).map(d => ({ index: d.index, name: d.name, url: d.url }));
+    return (docs as any[]).map(d => ({ 
+      index: d.index, 
+      name: d.name, 
+      url: d.url, 
+      favorite: d.favorite ?? false 
+    }));
   }
-
+  
   /*  Full list of monsters (all fields)  */
   async listFull(): Promise<Monster[]> {
     return this.monsterModel.find().exec();

@@ -28,8 +28,8 @@
                         500: '#4e495f',
                         600: '#20394f',
                         700: '#0f2a3f',
-                        800: '#000000',
-                        900: '#000000',
+                        800: '#0C2335',
+                        900: '#0B1C2A',
                         950: '#08141e',
                     },
                     ochre: '#814e16',
@@ -39,7 +39,7 @@
     </script>
 </head>
 
-<body class="h-screen bg-midnight-950">
+<body class="h-screen bg-fixed bg-gradient-to-b from-midnight-950 to-midnight-900">
     <div class="flex flex-col md:flex-row pt-4 mx-6 justify-between items-center">
         <!-- Back to Menu Button: aligned left -->
         <div class="w-full md:w-auto text-left min-w-32">
@@ -61,7 +61,15 @@
 
     <h1 class="text-center text-4xl font-bold text-midnight-200 my-2">Monster Statblocks</h1>
 
-    <div class="mt-4 mx-6 border-4 border-midnight-700 rounded-full"></div> <!-- line separator -->
+    <div class="mt-4 mx-6 border-4 border-midnight-700/50 rounded-full"></div> <!-- line separator -->
+
+    <!-- Favorites toggle -->
+    <div class="text-center justify-between items-center mx-6 mt-3 mb-1">
+        <button id="toggle-favorites"
+            class="px-4 py-2 rounded-full text-midnight-300 hover:text-midnight-200 bg-midnight-700/50 hover:bg-midnight-700 shadow-md shadow-midnight-950/50 transition">
+            Show only favorites
+        </button>
+    </div>
 
     <div id="statblock-container" 
         class="m-6 auto-rows-min grid gap-4 place-items-center
@@ -71,12 +79,19 @@
             2xl:grid-cols-4 
             3xl:grid-cols-5">
 
-        <div id="statblock-prefab" class="bg-gradient-to-b from-midnight-600 to-midnight-700 rounded shadow-md p-4 max-w-lg w-full ">
+        <div id="statblock-prefab" class="bg-gradient-to-b from-midnight-600 to-midnight-700 rounded-lg shadow-md p-4 max-w-lg w-full hidden">
             <div class="flex flex-col gap-2">
                 <!-- Top section: Monster Name & Icon -->
                 <div class="monster-name-info">
                     <div class="flex mx-2 gap-2 justify-between items-center">
-                        <h1 class="monster-name text-2xl font-bold text-midnight-100 py-1">Monster Name</h1>
+                        <div class="flex items-center gap-2">
+                            <button class="favorite-toggle text-midnight-950/50 hover:text-yellow-400 transition" aria-pressed="false" title="Toggle favorite">
+                                <svg viewBox="0 -20 640 640" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+                                    <path d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z" />
+                                </svg>
+                            </button>
+                            <h1 class="monster-name text-2xl font-bold text-midnight-100 py-1">Monster Name</h1>
+                        </div>
                         <div class="monster-type-icon w-10 h-10 flex-shrink-0 align-top">
                             <img src="img/fallback_img.png" alt="type_icon" class="type-icon h-full object-cover rounded-full shadow-md shadow-midnight-950/50" />
                         </div>

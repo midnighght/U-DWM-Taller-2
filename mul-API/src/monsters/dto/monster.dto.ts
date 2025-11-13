@@ -52,9 +52,8 @@ export class MonsterDto {
   @IsString()
   index: string;
 
-  @IsOptional()
   @IsBoolean()
-  favorite?: boolean;
+  favorite: boolean;
 
   @IsString()
   name: string;

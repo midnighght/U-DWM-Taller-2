@@ -9,12 +9,10 @@ const app = express();
 app.use(express.json());
 // CORS: allow requests from any origin, including file:// (origin null)
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow all origins in dev, including null (file://)
-    callback(null, true);
-  },
+  origin: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 }));
 // Ensure preflight requests are handled
 app.options('*', cors());

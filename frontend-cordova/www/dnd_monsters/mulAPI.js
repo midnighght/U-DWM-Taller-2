@@ -11,6 +11,7 @@ let monsterIndex = 0;   // start with first monster
 const batchSize = 12;   // load 10 monsters at a time
 let monstersList = [];  // list of monsters (name + url)
 let monstersDetails = []; // fetched detailed monsters
+let showOnlyFavorites = false; // toggle state
 
 // Utility: calculate D&D stat modifier
 function getModifier(stat) {
@@ -34,12 +35,33 @@ const imgObserver = new IntersectionObserver((entries, obs) => {
   });
 }, { rootMargin: "100px" });
 
-// 1. Fetch only the monster list
+// 1. Fetch only the monster list (minimal with favorite)
 async function fetchMonsters() {
-    const res = await fetch(baseUrl + "/monsters/");
-    const data = await res.json();
-    monstersList = data; // API returns array directly, not wrapped in results
-    monsterIndex = 0;
+  const res = await fetch(baseUrl + "/monsters/");
+  const data = await res.json();
+  monstersList = Array.isArray(data) ? data : [];
+  if (showOnlyFavorites) {
+    monstersList = monstersList.filter(m => m.favorite);
+  }
+  monsterIndex = 0;
+}
+
+function clearMonsters() {
+  Array.from(container.children).forEach(child => {
+    if (child.id !== "statblock-prefab") {
+      container.removeChild(child);
+    }
+  });
+}
+
+async function reloadMonsters() {
+  try { sentinelObserver.unobserve(sentinel); } catch {}
+  clearMonsters();
+  monstersDetails = [];
+  monsterIndex = 0;
+  await fetchMonsters();
+  await appendNextBatch();
+  sentinelObserver.observe(sentinel);
 }
 
 // 2. Fetch the next batch of detailed monsters and render
@@ -70,6 +92,38 @@ async function appendNextBatch() {
     const nameEl = clone.querySelector("h1.monster-name");
     if (nameEl) nameEl.textContent = data.name;
 
+    // Favorite toggle
+    const favBtn = clone.querySelector('.favorite-toggle');
+    const setStar = (el, fav) => {
+      if (!el) return;
+      el.setAttribute('aria-pressed', fav ? 'true' : 'false');
+      el.classList.toggle('text-yellow-400', !!fav);
+      el.classList.toggle('text-midnight-400', !fav);
+    };
+    setStar(favBtn, !!data.favorite);
+    if (favBtn) {
+      favBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        try {
+          const res = await fetch(`${baseUrl}/monsters/${encodeURIComponent(data.index)}/toggle-favorite`, { method: 'PATCH' });
+          if (!res.ok) return;
+          const result = await res.json();
+          const nowFav = !!result.favorite;
+          setStar(favBtn, nowFav);
+          // If showing only favorites and it was unfavorited, remove card and future loads
+          if (showOnlyFavorites && !nowFav) {
+            // Remove from DOM
+            clone.remove();
+            // Remove from pending list
+            monstersList = monstersList.filter(m => m.index !== data.index);
+          }
+        } catch (err) {
+          console.error('Failed toggling favorite', err);
+        }
+      });
+    }
+
     // Type, size, alignment
     const typeEl = clone.querySelector("h3.monster-type");
     if (typeEl) typeEl.textContent = `${capitalize(data.type)}, ${data.size}, ${data.alignment}`;
@@ -80,13 +134,16 @@ async function appendNextBatch() {
     if (statBlocks.length === 3) {
       // AC
       let ac = data.armor_class;
-      statBlocks[0].querySelector(".stat-value").textContent = Array.isArray(ac) ? ac[0].value : ac;
+      const acValueEl = statBlocks[0].querySelector(".stat-value h3") || statBlocks[0].querySelector(".stat-value");
+      if (acValueEl) acValueEl.textContent = Array.isArray(ac) ? ac[0].value : ac;
       // HP
-      statBlocks[1].querySelector(".stat-value").textContent = data.hit_points;
+      const hpValueEl = statBlocks[1].querySelector(".stat-value h3") || statBlocks[1].querySelector(".stat-value");
+      if (hpValueEl) hpValueEl.textContent = data.hit_points;
       // CR
       let cr = data.challenge_rating;
       const crMap = { 0.5: "1/2", 0.25: "1/4", 0.125: "1/8" };
-      statBlocks[2].querySelector(".stat-value").textContent = crMap[cr] || cr;
+      const crValueEl = statBlocks[2].querySelector(".stat-value h3") || statBlocks[2].querySelector(".stat-value");
+      if (crValueEl) crValueEl.textContent = crMap[cr] || cr;
     }
 
     // Ability scores: STR, DEX, CON, INT, WIS, CHA
@@ -94,8 +151,8 @@ async function appendNextBatch() {
     const abilityBlocks = clone.querySelectorAll(".monster-ability-scores .ability-score");
     abilityBlocks.forEach((block, i) => {
       const mod = getModifier(stats[i]);
-      const modEl = block.querySelector(".score-mod");
-      const statEl = block.querySelector(".score-stat");
+      const modEl = block.querySelector(".score-mod h3") || block.querySelector(".score-mod");
+      const statEl = block.querySelector(".score-stat h3") || block.querySelector(".score-stat");
       if (modEl) modEl.textContent = (mod >= 0 ? "+" : "") + mod;
       if (statEl) statEl.textContent = stats[i];
     });
@@ -157,9 +214,21 @@ backToTop.addEventListener("click", () => {
 
 // Initialize
 (async function init() {
-  await fetchMonsters();     // fetch only list first
-  await appendNextBatch();   // load first batch
-  sentinelObserver.observe(sentinel);
+  const toggleBtn = document.getElementById('toggle-favorites');
+  const updateToggleText = () => {
+    if (!toggleBtn) return;
+    toggleBtn.textContent = showOnlyFavorites ? 'Show all monsters' : 'Show only favorites';
+  };
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', async () => {
+      showOnlyFavorites = !showOnlyFavorites;
+      updateToggleText();
+      await reloadMonsters();
+    });
+    updateToggleText();
+  }
+
+  await reloadMonsters();
 })();
 
 // (async function init() {
@@ -169,3 +238,12 @@ backToTop.addEventListener("click", () => {
 
 // Run
 // loadMonsters().then(() => observeLazyImages());
+
+
+// // 1. Fetch only the monster list
+// async function fetchMonsters() {
+//     const res = await fetch(baseUrl + "/monsters/");
+//     const data = await res.json();
+//     monstersList = Array.isArray(data) ? data : [];
+//     monsterIndex = 0;
+// }
