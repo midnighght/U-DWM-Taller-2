@@ -12,7 +12,18 @@
     .temp-large { font-size: 2.5rem; line-height: 1; }
   </style>
 </head>
-<body class="min-h-screen antialiased bg-gradient-to-b from-sky-50 to-slate-100 flex items-center justify-center p-4">
+<body class="min-h-screen antialiased bg-gradient-to-b from-sky-50 to-slate-100 flex flex-col items-center justify-center p-4">
+
+  <div class="absolute top-6 left-6 text-left min-w-32">
+    <button id="back-to-menu"
+        onclick="window.location.href='../index.html'"
+        class="flex items-center gap-2 min-h-10 px-4 rounded-2xl 
+        bg-white shadow">
+        <span class="text-xl font-bold text-sky-600 font-mono">◀</span>
+        <span class="text-xl font-bold text-sky-600 pb-[5px]">ᴍᴇɴᴜ</span>
+    </button>
+  </div>
+
   <div class="w-full max-w-md">
     <header class="mb-4 text-center">
       <h1 class="text-3xl font-extrabold mb-1">Clima · FastAPI</h1>

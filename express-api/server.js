@@ -7,7 +7,17 @@ const Pokemon = require('./models/pokemon');
 
 const app = express();
 app.use(express.json());
-app.use(cors()); // allow all by default for dev
+// CORS: allow requests from any origin, including file:// (origin null)
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow all origins in dev, including null (file://)
+    callback(null, true);
+  },
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+// Ensure preflight requests are handled
+app.options('*', cors());
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://mongodb-pokemon:27017/pokemon_db';
 const PORT = process.env.PORT || 5100;

@@ -13,8 +13,9 @@ app = FastAPI(title="Weather API - FastAPI (Taller)")
 # Habilitar CORS para desarrollo (ajusta en producción)
 app.add_middleware(
     CORSMiddleware,
+    # Allow all origins for development; with credentials disabled this is valid
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

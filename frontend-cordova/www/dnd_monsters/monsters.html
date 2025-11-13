@@ -20,17 +20,17 @@
             extend: {
                 colors: {
                     midnight: {
-                        50: '#c0c3c9',
-                        100: '#b7bcc7',
-                        200: '#a6aec3',
-                        300: '#909bbc',
-                        400: '#7782b5',
-                        500: '#626aac',
-                        600: '#4d50a0',
-                        700: '#40418c',
-                        800: '#363771',
-                        900: '#30325b',
-                        950: '#1c1c34',
+                        50:  '#000000',
+                        100: '#f6d6bd',
+                        200: '#c3a38a',
+                        300: '#997577',
+                        400: '#816271',
+                        500: '#4e495f',
+                        600: '#20394f',
+                        700: '#0f2a3f',
+                        800: '#000000',
+                        900: '#000000',
+                        950: '#08141e',
                     },
                     ochre: '#814e16',
                 },
@@ -39,29 +39,29 @@
     </script>
 </head>
 
-<body class="h-screen bg-slate-950">
-    <div class="flex flex-row pt-4 mx-6 justify-between items-center">
+<body class="h-screen bg-midnight-950">
+    <div class="flex flex-col md:flex-row pt-4 mx-6 justify-between items-center">
         <!-- Back to Menu Button: aligned left -->
-        <div class="text-left text-white min-w-32">
+        <div class="w-full md:w-auto text-left min-w-32">
             <button id="back-to-menu"
                 onclick="window.location.href='../index.html'"
                 class="flex items-center gap-2 min-h-10 px-4 rounded-full 
-                bg-indigo-900 hover:bg-midnight-700 shadow-md shadow-midnight-950/50">
-                <span class="text-xl font-bold text-amber-100 font-mono">◀</span>
-                <span class="text-xl font-bold text-amber-100 pb-[5px]">ᴍᴇɴᴜ</span>
+                bg-midnight-700 hover:bg-midnight-600 shadow-md shadow-midnight-950/50">
+                <span class="text-xl font-bold text-midnight-100 font-mono">◀</span>
+                <span class="text-xl font-bold text-midnight-100 pb-[5px]">ᴍᴇɴᴜ</span>
             </button>
         </div>
         <!-- Headers: centered to the parent, not just its own width -->
         <div class="text-center">
-            <h2 class="text-2xl font-bold text-red-800">Dungeons & Dragons</h2>
-            <h3 class="text-lg font-semibold text-slate-600"><i>5th Edition</i></h3>
+            <h2 class="text-2xl font-bold text-midnight-400">Dungeons & Dragons</h2>
+            <h3 class="text-lg font-semibold text-midnight-500"><i>5th Edition</i></h3>
         </div>
         <div class="min-w-32"></div>
     </div>
 
-    <h1 class="text-center text-4xl font-bold text-midnight-600 my-2">Monster Statblocks</h1>
+    <h1 class="text-center text-4xl font-bold text-midnight-200 my-2">Monster Statblocks</h1>
 
-    <div class="mt-4 mx-6 border-4 border-midnight-950 rounded-full"></div> <!-- line separator -->
+    <div class="mt-4 mx-6 border-4 border-midnight-700 rounded-full"></div> <!-- line separator -->
 
     <div id="statblock-container" 
         class="m-6 auto-rows-min grid gap-4 place-items-center
@@ -71,12 +71,12 @@
             2xl:grid-cols-4 
             3xl:grid-cols-5">
 
-        <div id="statblock-prefab" class="bg-slate-800 rounded shadow-md p-4 max-w-lg w-full hidden">
+        <div id="statblock-prefab" class="bg-gradient-to-b from-midnight-600 to-midnight-700 rounded shadow-md p-4 max-w-lg w-full ">
             <div class="flex flex-col gap-2">
                 <!-- Top section: Monster Name & Icon -->
                 <div class="monster-name-info">
                     <div class="flex mx-2 gap-2 justify-between items-center">
-                        <h1 class="monster-name text-2xl font-bold text-amber-100 py-1">Monster Name</h1>
+                        <h1 class="monster-name text-2xl font-bold text-midnight-100 py-1">Monster Name</h1>
                         <div class="monster-type-icon w-10 h-10 flex-shrink-0 align-top">
                             <img src="img/fallback_img.png" alt="type_icon" class="type-icon h-full object-cover rounded-full shadow-md shadow-midnight-950/50" />
                         </div>
@@ -93,57 +93,90 @@
                     </div>
                     <div class="monster-main-stats w-full lg:py-2 lg:w-1/5 min-w-0 flex flex-row lg:flex-col gap-2 text-center">
                         <div class="monster-stat-block flex-1">
-                            <div class="stat-value text-amber-100 text-lg mx-2 py-2 rounded-lg bg-slate-900">10</div>
+                            <div class="stat-value text-midnight-100 text-lg mx-2 py-2 rounded-lg bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-midnight-950/30"></div>
+                                <h3 class="relative">-</h3>
+                            </div>
                             <div class="stat-label text-midnight-400 text-xl font-bold">AC</div>
                         </div>
                         <div class="monster-stat-block flex-1">
-                            <div class="stat-value text-amber-100 text-lg mx-2 py-2 rounded-lg bg-slate-900">320</div>
+                            <div class="stat-value text-midnight-100 text-lg mx-2 py-2 rounded-lg bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-midnight-950/30"></div>
+                                <h3 class="relative">-</h3>
+                            </div>
                             <div class="stat-label text-midnight-400 text-xl font-bold">HP</div>
                         </div>
                         <div class="monster-stat-block flex-1">
-                            <div class="stat-value text-amber-100 text-lg mx-2 py-2 rounded-lg bg-slate-900">5</div>
+                            <div class="stat-value text-midnight-100 text-lg mx-2 py-2 rounded-lg bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-midnight-950/30"></div>
+                                <h3 class="relative">-</h3>
+                            </div>
                             <div class="stat-label text-midnight-400 text-xl font-bold">CR</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="border-2 mx-2 border-midnight-600 rounded-full"></div>
+                <div class="border-2 mx-2 border-midnight-500 rounded-full"></div>
 
                 <!-- Ability Scores: STR, DEX, CON, INT, WIS, CHA -->
                 <div class="monster-ability-scores flex flex-row gap-2 px-2 text-center">
                     <div class="ability-score flex flex-col flex-1">
                         <div class="score-label text-midnight-400 font-bold">STR</div>
-                        <div class="score-mod text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</div>
-                        <div class="score-stat text-amber-100">stat</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
                     </div>
                     <div class="ability-score flex flex-col flex-1">
                         <div class="score-label text-midnight-400 font-bold">DEX</div>
-                        <div class="score-mod text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</div>
-                        <div class="score-stat text-amber-100">stat</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
                     </div>
                     <div class="ability-score flex flex-col flex-1">
                         <div class="score-label text-midnight-400 font-bold">CON</div>
-                        <div class="score-mod text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</div>
-                        <div class="score-stat text-amber-100">stat</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
                     </div>
                     <div class="ability-score flex flex-col flex-1">
                         <div class="score-label text-midnight-400 font-bold">INT</div>
-                        <div class="score-mod text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</div>
-                        <div class="score-stat text-amber-100">stat</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
                     </div>
                     <div class="ability-score flex flex-col flex-1">
                         <div class="score-label text-midnight-400 font-bold">WIS</div>
-                        <div class="score-mod text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</div>
-                        <div class="score-stat text-amber-100">stat</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
                     </div>
                     <div class="ability-score flex flex-col flex-1">
                         <div class="score-label text-midnight-400 font-bold">CHA</div>
-                        <div class="score-mod text-amber-100 text-lg mx-1 mt-1 rounded-lg bg-slate-900">mod</div>
-                        <div class="score-stat text-amber-100">stat</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
                     </div>
                 </div>
 
-                <div class="border-2 mx-2 border-midnight-600 rounded-full"></div>
+                <div class="border-2 mx-2 border-midnight-500 rounded-full"></div>
             </div>
         </div>
     </div>
@@ -152,7 +185,7 @@
     <div id="scroll-sentinel" class="flex h-16"></div>
 
     <button id="back-to-top" class="fixed bottom-8 right-10 pt-[6px] pb-[10px] min-w-11 rounded-full 
-    text-center text-xl font-bold text-amber-100 bg-indigo-900 hover:bg-midnight-700  
+    text-center text-xl font-bold text-midnight-100 bg-indigo-900 hover:bg-midnight-700  
     shadow-md shadow-midnight-950/50
     pointer-events-none transition-opacity opacity-0 duration-300 ease-in-out">
         ▲
