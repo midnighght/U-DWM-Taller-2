@@ -1,4 +1,3 @@
-// server.js
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -7,27 +6,27 @@ const Pokemon = require('./models/pokemon');
 
 const app = express();
 app.use(express.json());
-// CORS: allow requests from any origin, including file:// (origin null)
+// CORS: allow 
 app.use(cors({
   origin: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
-// Ensure preflight requests are handled
+
 app.options('*', cors());
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://mongodb-pokemon:27017/pokemon_db';
 const PORT = process.env.PORT || 5100;
 
 mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(()=> console.log('🔌 Express conectado a MongoDB'))
+  .then(()=> console.log('Express conectado a MongoDB'))
   .catch(err => {
     console.error('Mongo connection error:', err);
     process.exit(1);
   });
 
-// GET /pokemon -> lista (paginable opcional)
+// GET /pokemon 
 app.get('/pokemon', async (req, res) => {
   try {
     const limit = Math.min(parseInt(req.query.limit || '100', 10), 1000);
@@ -39,7 +38,7 @@ app.get('/pokemon', async (req, res) => {
   }
 });
 
-// GET /pokemon/:name (case-ins)
+// GET /pokemon/:name 
 app.get('/pokemon/:name', async (req, res) => {
   try {
     const name = req.params.name;
@@ -54,4 +53,4 @@ app.get('/pokemon/:name', async (req, res) => {
 
 app.get('/', (req, res) => res.json({ message: 'Express Pokemon API - endpoints: /pokemon, /pokemon/:name' }));
 
-app.listen(PORT, ()=> console.log(`🚀 Express Pokemon API corriendo en puerto ${PORT}`));
+app.listen(PORT, ()=> console.log(`Express Pokemon API corriendo en puerto ${PORT}`));

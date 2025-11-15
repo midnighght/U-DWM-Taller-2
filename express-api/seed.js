@@ -1,4 +1,3 @@
-// seed.js
 require('dotenv').config();
 const axios = require('axios');
 const mongoose = require('mongoose');
@@ -11,7 +10,7 @@ const MAX_RETRIES = 10;
 async function waitForMongo(retries=0){
   try {
     await mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log('🔌 Conectado a MongoDB para seed.');
+    console.log('Conectado a MongoDB para seed.');
     return;
   } catch (err) {
     if (retries >= MAX_RETRIES) throw err;
@@ -43,7 +42,7 @@ async function fetchAndSeed(){
   try {
     // connect
     await waitForMongo();
-    // If already have data, skip
+   
     const count = await Pokemon.countDocuments();
     if (count > 0) {
       console.log(`DB ya tiene ${count} pokémon(es). Seed detenido.`);
@@ -55,7 +54,7 @@ async function fetchAndSeed(){
     const listResp = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${POKE_LIMIT}`);
     const entries = listResp.data.results;
 
-    // fetch individual detail for each (but limit concurrency)
+    // fetch individual 
     const chunks = [];
     const concurrency = 6;
     for (let i=0;i<entries.length;i+=concurrency){
@@ -74,11 +73,11 @@ async function fetchAndSeed(){
         const height = r.height;
         const weight = r.weight;
         const sprite = r.sprites?.front_default || null;
-        // short description fallback: species endpoint
+        
         let short = '';
         try {
           const sp = await axios.get(r.species.url);
-          // species flavor_text_entries contain multiple languages; pick english if exists
+          
           const enEntry = sp.data.flavor_text_entries.find(f => f.language.name === 'en');
           short = enEntry ? enEntry.flavor_text.replace(/\n|\f/g, ' ') : '';
         } catch (err) {
@@ -86,7 +85,7 @@ async function fetchAndSeed(){
         }
         docs.push({ pokeId, name, types, height, weight, sprite, short });
       }
-      // small delay to be friendly
+      // delay
       await new Promise(r => setTimeout(r, 300));
     }
 

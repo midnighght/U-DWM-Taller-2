@@ -1,4 +1,3 @@
-# fast-api/init_db.py
 import sqlite3
 import os
 import random
@@ -8,7 +7,7 @@ DB_PATH = "weather.db"
 
 # Lista inicial de ciudades con rangos de temperatura típicos (aprox)
 INITIAL_CITIES = [
-    ("Santiago", 8, 30),      # Chile - templado
+    ("Santiago", 8, 30),      
     ("Buenos Aires", 8, 32),
     ("Valparaíso", 8, 26),
     ("Antofagasta", 14, 26),
@@ -33,7 +32,6 @@ INITIAL_CITIES = [
 def random_weather_for_city(city_name, min_t, max_t):
     """Genera datos de clima realistas (simulados) para una ciudad"""
     # Usa una semilla basada en el nombre para variar por ciudad de forma consistente si se generara fuera de DB.
-    # Pero como persiste en DB, esto solo sirve si se genera por primera vez.
     seed = sum(ord(c) for c in city_name) + len(city_name)
     rnd = random.Random(seed + int(datetime.utcnow().timestamp() % 1000))
     temperature = round(rnd.uniform(min_t, max_t), 1)
@@ -87,9 +85,9 @@ def init_db():
             VALUES (?, ?, ?, ?, ?)
         """, rows)
         conn.commit()
-        print(f"✅ Base inicializada con {len(rows)} ciudades.")
+        print(f"Base inicializada con {len(rows)} ciudades.")
     else:
-        print("ℹ️ Base ya inicializada; no se insertaron ciudades nuevas.")
+        print("Base ya inicializada; no se insertaron ciudades nuevas.")
 
     conn.close()
 

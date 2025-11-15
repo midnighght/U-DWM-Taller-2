@@ -1,14 +1,13 @@
-// models/pokemon.js
 const mongoose = require('mongoose');
 
 const PokemonSchema = new mongoose.Schema({
-  pokeId: { type: Number, index: true },   // id from PokeAPI
+  pokeId: { type: Number, index: true },   // id pokeAPI
   name: { type: String, required: true, unique: true },
   types: [String],
   height: Number,
   weight: Number,
   sprite: String,
-  short: String, // short description if available
+  short: String, // descripcion corta
   createdAt: { type: Date, default: Date.now }
 });
 
