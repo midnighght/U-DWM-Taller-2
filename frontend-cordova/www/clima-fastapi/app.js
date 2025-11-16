@@ -5,6 +5,12 @@ if (window.location.hostname === "localhost" || window.location.hostname === "12
 } else {
   BASE_URL = `${window.location.protocol}//${window.location.hostname.replace('8080','5200')}`;
 }
+// Configuración CORS para permitir peticiones cross-origin
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
 
 const $ = id => document.getElementById(id);
 
