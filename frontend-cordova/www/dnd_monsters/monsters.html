@@ -71,6 +71,22 @@
         </button>
     </div>
 
+    <!-- Error message container -->
+    <div id="error-container" class="hidden mx-10 mt-4 p-4 bg-red-900/30 border-2 border-red-700/50 rounded-lg">
+        <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-red-700 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <div class="flex-1">
+                <h3 class="text-midnight-100 font-bold text-lg">Error Loading Monsters</h3>
+                <p id="error-message" class="text-midnight-300 mt-1"></p>
+            </div>
+            <button id="retry-button" class="px-4 py-2 bg-midnight-100 font-semibold hover:bg-midnight-200 text-midnight-950 rounded-full transition">
+                Retry
+            </button>
+        </div>
+    </div>
+
     <div id="statblock-container" 
         class="m-6 auto-rows-min grid gap-4 place-items-center
             grid-cols-1

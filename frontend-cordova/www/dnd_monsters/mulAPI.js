@@ -2,6 +2,9 @@ const container = document.getElementById("statblock-container");
 const prefab = document.getElementById("statblock-prefab");
 const sentinel = document.getElementById("scroll-sentinel");
 const backToTop = document.getElementById("back-to-top");
+const errorContainer = document.getElementById("error-container");
+const errorMessage = document.getElementById("error-message");
+const retryButton = document.getElementById("retry-button");
 
 const baseUrl = "http://localhost:5000/mul-api";
 const fallbackImg = "img/fallback_img.png";
@@ -12,6 +15,19 @@ const batchSize = 12;   // load 10 monsters at a time
 let monstersList = [];  // list of monsters (name + url)
 let monstersDetails = []; // fetched detailed monsters
 let showOnlyFavorites = false; // toggle state
+
+// Show error message
+function showError(message) {
+  if (errorMessage) errorMessage.textContent = message;
+  if (errorContainer) errorContainer.classList.remove("hidden");
+  if (container) container.classList.add("hidden");
+}
+
+// Hide error message
+function hideError() {
+  if (errorContainer) errorContainer.classList.add("hidden");
+  if (container) container.classList.remove("hidden");
+}
 
 // Utility: calculate D&D stat modifier
 function getModifier(stat) {
@@ -37,13 +53,23 @@ const imgObserver = new IntersectionObserver((entries, obs) => {
 
 // 1. Fetch only the monster list (minimal with favorite)
 async function fetchMonsters() {
-  const res = await fetch(baseUrl + "/monsters/");
-  const data = await res.json();
-  monstersList = Array.isArray(data) ? data : [];
-  if (showOnlyFavorites) {
-    monstersList = monstersList.filter(m => m.favorite);
+  try {
+    const res = await fetch(baseUrl + "/monsters/");
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+    const data = await res.json();
+    monstersList = Array.isArray(data) ? data : [];
+    if (showOnlyFavorites) {
+      monstersList = monstersList.filter(m => m.favorite);
+    }
+    monsterIndex = 0;
+    hideError();
+  } catch (error) {
+    console.error('Error fetching monsters:', error);
+    showError(`Failed to load monsters from API. Please check if the server is running at ${baseUrl}. Error: ${error.message}`);
+    throw error;
   }
-  monsterIndex = 0;
 }
 
 function clearMonsters() {
@@ -55,13 +81,18 @@ function clearMonsters() {
 }
 
 async function reloadMonsters() {
-  try { sentinelObserver.unobserve(sentinel); } catch {}
-  clearMonsters();
-  monstersDetails = [];
-  monsterIndex = 0;
-  await fetchMonsters();
-  await appendNextBatch();
-  sentinelObserver.observe(sentinel);
+  try {
+    try { sentinelObserver.unobserve(sentinel); } catch {}
+    clearMonsters();
+    monstersDetails = [];
+    monsterIndex = 0;
+    await fetchMonsters();
+    await appendNextBatch();
+    sentinelObserver.observe(sentinel);
+  } catch (error) {
+    console.error('Error reloading monsters:', error);
+    // Error already shown in fetchMonsters
+  }
 }
 
 // 2. Fetch the next batch of detailed monsters and render
@@ -70,18 +101,23 @@ async function appendNextBatch() {
 
   const nextBatch = monstersList.slice(monsterIndex, monsterIndex + batchSize);
 
-  // Fetch details for the batch
-  const batchDetails = await Promise.all(
-    nextBatch.map(async m => {
-      const res = await fetch(baseUrl + m.url);
-      return await res.json();
-    })
-  );
+  try {
+    // Fetch details for the batch
+    const batchDetails = await Promise.all(
+      nextBatch.map(async m => {
+        const res = await fetch(baseUrl + m.url);
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return await res.json();
+      })
+    );
 
-  monstersDetails.push(...batchDetails);
+    monstersDetails.push(...batchDetails);
+    hideError();
 
-  // Render each monster
-  batchDetails.forEach(data => {
+    // Render each monster
+    batchDetails.forEach(data => {
     const clone = prefab.cloneNode(true);
     clone.id = "";
     clone.classList.remove("hidden");
@@ -191,6 +227,10 @@ async function appendNextBatch() {
   if (monsterIndex >= monstersList.length) {  // All monsters loaded -> stop observing sentinel
     sentinelObserver.unobserve(sentinel);
   }
+  } catch (error) {
+    console.error('Error fetching monster details:', error);
+    showError(`Failed to load monster details from API. Error: ${error.message}`);
+  }
 }
 
 // Sentinel observer for infinite scroll
@@ -226,6 +266,13 @@ backToTop.addEventListener("click", () => {
       await reloadMonsters();
     });
     updateToggleText();
+  }
+
+  // Add retry button functionality
+  if (retryButton) {
+    retryButton.addEventListener('click', async () => {
+      await reloadMonsters();
+    });
   }
 
   await reloadMonsters();
