@@ -6,7 +6,11 @@ const errorContainer = document.getElementById("error-container");
 const errorMessage = document.getElementById("error-message");
 const retryButton = document.getElementById("retry-button");
 
-const baseUrl = "http://localhost:5000/mul-api";
+// Detect if running on Android emulator/device via Cordova
+// Use 10.0.2.2 for Android emulator (maps to host's localhost)
+const isAndroid = typeof cordova !== 'undefined' && cordova.platformId === 'android';
+const host = isAndroid ? '10.0.2.2' : 'localhost';
+const baseUrl = `http://${host}:5000/mul-api`;
 const fallbackImg = "img/fallback_img.png";
 const loadingImg = "img/loading_img.png";
 

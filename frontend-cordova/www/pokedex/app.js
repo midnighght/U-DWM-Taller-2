@@ -1,6 +1,8 @@
-let BASE_URL;
-
-BASE_URL = "http://localhost:5100";
+// Detect if running on Android emulator/device via Cordova
+// Use 10.0.2.2 for Android emulator (maps to host's localhost)
+const isAndroid = typeof cordova !== 'undefined' && cordova.platformId === 'android';
+const host = isAndroid ? '10.0.2.2' : 'localhost';
+const BASE_URL = `http://${host}:5100`;
 
 const $ = (id) => document.getElementById(id);
 function setStatus(msg) { $("status").textContent = msg; }
