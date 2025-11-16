@@ -1,10 +1,7 @@
 // Determina la base URL dependiendo del entorno
 let BASE_URL;
-if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-  BASE_URL = "http://localhost:5200";
-} else {
-  BASE_URL = `${window.location.protocol}//${window.location.hostname.replace('8080','5200')}`;
-}
+BASE_URL = "http://localhost:5200";
+
 // Configuración CORS para permitir peticiones cross-origin
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',

@@ -1,9 +1,6 @@
 let BASE_URL;
-if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-  BASE_URL = "http://localhost:5100";
-} else {
-  BASE_URL = `${window.location.protocol}//${window.location.hostname.replace("8081", "5100")}`;
-}
+
+BASE_URL = "http://localhost:5100";
 
 const $ = (id) => document.getElementById(id);
 function setStatus(msg) { $("status").textContent = msg; }
@@ -68,7 +65,7 @@ async function fetchAll() {
     const res = await fetch(`${BASE_URL}/pokemon?limit=100`);
     const data = await res.json();
     renderGrid(data);
-    setStatus(`Mostrando ${data.length} Pokémon`);
+    setStatus(`Mostrando ${data.length} Pokémon (Lista demo).`);
   } catch (err) {
     console.error(err);
     setStatus("Error al obtener datos.");
@@ -88,7 +85,7 @@ async function fetchByName() {
     }
     const data = await res.json();
     renderGrid([data]);
-    setStatus("Listo.");
+    setStatus("Éxito.");
   } catch (err) {
     console.error(err);
     setStatus("Error al buscar Pokémon.");
@@ -96,7 +93,7 @@ async function fetchByName() {
 }
 
 function randomName() {
-  const pool = ["pikachu","bulbasaur","charmander","squirtle","jigglypuff","eevee","snorlax","mew","meowth","psyduck"];
+  const pool = ["pikachu","bulbasaur","charmander","squirtle","jigglypuff","eevee","snorlax","meowth"];
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
