@@ -1,6 +1,6 @@
 // API base URL configuration for android emulator
-const host = '10.0.2.2';
-const BASE_URL = `http://${host}:5100`;
+const host = 'https://c67rtp99-5100.brs.devtunnels.ms/';
+const BASE_URL = `${host}`;
 
 const $ = (id) => document.getElementById(id);
 function setStatus(msg) { $("status").textContent = msg; }
@@ -62,7 +62,7 @@ function renderGrid(list) {
 async function fetchAll() {
   setStatus("Cargando Pokémon...");
   try {
-    const res = await fetch(`${BASE_URL}/pokemon?limit=100`);
+    const res = await fetch(`${BASE_URL}pokemon?limit=100`);
     const data = await res.json();
     renderGrid(data);
     setStatus(`Mostrando ${data.length} Pokémon (Lista demo).`);
@@ -77,7 +77,7 @@ async function fetchByName() {
   if (!name) return setStatus("Escribe un nombre.");
   setStatus("Buscando...");
   try {
-    const res = await fetch(`${BASE_URL}/pokemon/${encodeURIComponent(name)}`);
+    const res = await fetch(`${BASE_URL}pokemon/${encodeURIComponent(name)}`);
     if (res.status === 404) {
       $("grid").innerHTML = "";
       setStatus("Pokémon no encontrado.");
@@ -100,7 +100,7 @@ function randomName() {
 // Modal
 async function openModal(name) {
   try {
-    const res = await fetch(`${BASE_URL}/pokemon/${encodeURIComponent(name)}`);
+    const res = await fetch(`${BASE_URL}pokemon/${encodeURIComponent(name)}`);
     const p = await res.json();
     $("modalSprite").src = p.sprite;
     $("modalName").textContent = p.name;

@@ -1,6 +1,6 @@
 // API base URL configuration for android emulator
-const host = '10.0.2.2';
-const BASE_URL = `http://${host}:5200`;
+const host = 'https://c67rtp99-5200.brs.devtunnels.ms/';
+const BASE_URL = `${host}`;
 
 const $ = id => document.getElementById(id);
 
@@ -54,7 +54,7 @@ async function fetchCity() {
   if (!city) return setStatus("Escribe una ciudad.");
   setStatus("Cargando...");
   try {
-    const res = await fetch(`${BASE_URL}/weather/${encodeURIComponent(city)}`);
+    const res = await fetch(`${BASE_URL}weather/${encodeURIComponent(city)}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     $("result").innerHTML = renderWeatherCard(data);
@@ -68,7 +68,7 @@ async function fetchCity() {
 async function fetchAll() {
   setStatus("Cargando todos los datos...");
   try {
-    const res = await fetch(`${BASE_URL}/weather`);
+    const res = await fetch(`${BASE_URL}weather`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const list = await res.json();
     renderAll(list);

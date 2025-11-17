@@ -1,3 +1,7 @@
+// API base URL configuration for android emulator
+const host = 'https://c67rtp99-5000.brs.devtunnels.ms';
+const baseUrl = `${host}/mul-api`;
+
 const container = document.getElementById("statblock-container");
 const prefab = document.getElementById("statblock-prefab");
 const sentinel = document.getElementById("scroll-sentinel");
@@ -6,9 +10,6 @@ const errorContainer = document.getElementById("error-container");
 const errorMessage = document.getElementById("error-message");
 const retryButton = document.getElementById("retry-button");
 
-// API base URL configuration for android emulator
-const host = '10.0.2.2';
-const baseUrl = `http://${host}:5000/mul-api`;
 const fallbackImg = "img/fallback_img.png";
 const loadingImg = "img/loading_img.png";
 

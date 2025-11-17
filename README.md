@@ -47,7 +47,7 @@ Añade `-v` si quieres remover volumes (borrar database data):
 docker compose down -v
 ```
 
-## 3. Probar las APIs (Sample Requests)
+## 3. Probar las APIs
 
 Verificar que las APIs respondan correctamente en:
 ```
@@ -60,8 +60,30 @@ http://localhost:5200/weather
 
 Los puertos están definidos en los archivos .env y .env.example, y en docker-compose.yml. Por defecto son 5000, 5100 y 5200.
 
-Ademas las url base de las APIs estan configuradas al comiendo de los archivos .js de cada API. Si se desea cambiar en la version para android, se debe hacer un nuevo build con Cordova.
+Ademas las url base de las APIs estan configuradas al comienzo de los archivos .js de cada API. Si se desea cambiar en la version para android, se debe hacer un nuevo build con Cordova.
 
-## 5. Instalar App en emulador
+## 5. Probar App de android con Visual Studio Code Remote - Tunnels
+
+Para probar la App en un emulador de android se debe:
+1. Añadir los puertos de cada API (5000, 5100, 5200 por defecto) a los puertos de VSC Remote - Tunnels y configurar su visibilidad como pública.
+
+2. Copiar las direcciones generadas para cada puerto, y reemplazar el valor de "host" con estas en los siguientes archivos:
+- frontend-cordova/www/dnd_monsters/mulAPI.js (puerto 5000)
+- frontend-cordova/www/pokedex/app.js (puerto 5100)
+- frontend-cordova/www/clima-fastapi/app.js (puerto 5200)
+
+3. Instalar cordova en frontend-cordova/ y añadir plataforma android
+```
+npm install -g cordova
+```
+```
+cordova platform add android
+```
+
+4. Crear el build con los nuevos puertos
+```
+cordova build android --debug
+```
+5. Instalar el apk generado en un emulador de android 
 
 Para probar la app de android instalar "blueberryAPI-v2.apk" (en apk_builds) en un dispositivo android emulado.
