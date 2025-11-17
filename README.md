@@ -44,4 +44,4 @@ Ademas las url base de las APIs estan configuradas al comiendo de los archivos .
 
 ## 5. Instalar App en emulador
 
-Para probar la app de android instalar "blueberryAPI-v.apk" en un dispositivo android emulado.
+Para probar la app de android instalar "blueberryAPI-v2.apk" (en apk_builds) en un dispositivo android emulado.
