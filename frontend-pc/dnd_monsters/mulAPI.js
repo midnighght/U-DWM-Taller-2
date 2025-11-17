@@ -6,9 +6,7 @@ const errorContainer = document.getElementById("error-container");
 const errorMessage = document.getElementById("error-message");
 const retryButton = document.getElementById("retry-button");
 
-// API base URL configuration for android emulator
-const host = '10.0.2.2';
-const baseUrl = `http://${host}:5000/mul-api`;
+const baseUrl = `http://localhost:5000/mul-api`;
 const fallbackImg = "img/fallback_img.png";
 const loadingImg = "img/loading_img.png";
 

@@ -5,7 +5,12 @@
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "android:clean": "cordova clean android",
+    "android:build:debug": "cordova build android --debug",
+    "android:build:release": "cordova build android --release",
+    "android:run:device": "cordova run android --device",
+    "android:run:emulator": "cordova run android --emulator"
   },
   "keywords": [
     "ecosystem:cordova"
@@ -19,6 +24,7 @@
   "cordova": {
     "platforms": [
       "android"
-    ]
+    ],
+    "plugins": {}
   }
 }

@@ -53,4 +53,4 @@ app.get('/pokemon/:name', async (req, res) => {
 
 app.get('/', (req, res) => res.json({ message: 'Express Pokemon API - endpoints: /pokemon, /pokemon/:name' }));
 
-app.listen(PORT, ()=> console.log(`Express Pokemon API corriendo en puerto ${PORT}`));
+app.listen(PORT, '0.0.0.0', ()=> console.log(`Express Pokemon API corriendo en puerto ${PORT}`));

@@ -1,6 +1,4 @@
-// API base URL configuration for android emulator
-const host = '10.0.2.2';
-const BASE_URL = `http://${host}:5200`;
+const BASE_URL = `http://localhost:5200`;
 
 const $ = id => document.getElementById(id);
 

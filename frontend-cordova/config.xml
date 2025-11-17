@@ -1,11 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.webmovil.taller2" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>API Master</name>
-    <description>Sample Apache Cordova App</description>
-    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
-        Apache Cordova Team
+<widget id="com.webmovil.taller2" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>blueberry API</name>
+    <description>Taller 2 Desarrollo Web Movil</description>
+    <author email="maximo.sarno@alumnos.ucn.cl" href="https://github.com/midnighght">
+        Midnighght
     </author>
     <content src="index.html" />
+    <access origin="*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+    <platform name="android">
+        <preference name="android-archiveBaseName" value="blueberry-API" />
+        <icon src="www/img/blueberry-icon.xml" />
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+            <application android:usesCleartextTraffic="true" />
+        </edit-config>
+    </platform>
 </widget>
