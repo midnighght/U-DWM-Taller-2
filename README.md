@@ -1,4 +1,24 @@
-# U-DWM-Taller-2
+# Taller 2 Desarrollo Web/Móvil
+
+## Integrantes
+
+- Maximo Sarno, 21.853.202-0
+- Ferran Rojas, 21.642.668-1
+- Martin Ubilla, 20.751.624-4
+- Emily Volta, 20.718.229-K
+
+
+## Tecnologías Usadas
+
+APIs implementadas con:
+- Nest.js (D&D 5e monsters)
+- Express.js (Pokemon)
+- Fast-api (Clima)
+
+Bases de datos utilizadas:
+- SQL Lite (fast-api)
+- MongoDB (Nest.js y Express.js)
+
 
 ## 1. Prerequisitos
 
@@ -44,4 +64,4 @@ Ademas las url base de las APIs estan configuradas al comiendo de los archivos .
 
 ## 5. Instalar App en emulador
 
-Para probar la app de android instalar "blueberryAPI-v.apk" en un dispositivo android emulado.
+Para probar la app de android instalar "blueberryAPI-v2.apk" (en apk_builds) en un dispositivo android emulado.
