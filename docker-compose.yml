@@ -1,45 +1,69 @@
 services:
-    
     mongodb:
-        image: mongodb/mongodb-community-server:latest
+        image: mongo:6
         container_name: mongodb
         restart: unless-stopped
         ports:
             - "27017:27017"
-        volumes:
-            - mongodb:/data/db 
         environment:
-            MONGO_INITDB_ROOT_USERNAME: reist
+            MONGO_INITDB_ROOT_USERNAME: admin
             MONGO_INITDB_ROOT_PASSWORD: password1234
-    backend:
-        build: ./backend
-        container_name: backend
+        volumes:
+            - mongodb:/data/db
+            - ./mongo-init:/docker-entrypoint-initdb.d:ro
+        networks:
+            - app-network
+        healthcheck:
+            test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+
+    mul-api:
+        build: ./mul-API
+        container_name: mul-api
         restart: unless-stopped
         ports:
             - "5000:5000"
         env_file:
-            - ./backend/.env
+            - ./mul-API/.env
         depends_on:
-            - mongodb
-
-    frontend:
-        build:
-            context: ./frontend
-            dockerfile: Dockerfile
-        container_name: auth-app-frontend
-        ports:
-            - "3000:3000"
-        restart: unless-stopped
-        env_file:
-            - ./frontend/.env
-        depends_on:
-            - backend
+            mongodb:
+                condition: service_healthy
         networks:
             - app-network
+
+    express-api:
+        build: ./express-api
+        container_name: express-api
+        restart: unless-stopped
+        ports:
+            - "5100:5100"  # expone 5100 en host → 5100 en contenedor
+        env_file:
+            - ./express-api/.env
+        depends_on:
+            mongodb:
+                condition: service_healthy
+        networks:
+            - app-network
+
+    fastapi-weather:
+        build: ./fast-api
+        container_name: fastapi-weather
+        restart: unless-stopped
+        ports:
+            - "5200:5200"
+        volumes:
+            - fastapi-weather:/app  # SQLite persistence
+        networks:
+            - app-network
+
+     
 volumes:
     mongodb:
+    fastapi-weather:
 
-# docker-compose down --volumes --rmi all
  
 networks:
   app-network:

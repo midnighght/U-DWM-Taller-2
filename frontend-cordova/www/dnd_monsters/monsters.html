@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DND 5e MONSTERS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: {
+            screens: {
+                'tn': '384px',  //tiny: half of medium (custom)
+                'sm': '640px',
+                'md': '768px',
+                'lg': '1024px',
+                'xl': '1152px', //xl: three times tiny (modified)
+                '2xl': '1536px',
+                '3xl': '1920px',//3xl: five times tiny (custom)
+            },
+            extend: {
+                colors: {
+                    midnight: {
+                        50:  '#000000',
+                        100: '#f6d6bd',
+                        200: '#c3a38a',
+                        300: '#997577',
+                        400: '#816271',
+                        500: '#4e495f',
+                        600: '#20394f',
+                        700: '#0f2a3f',
+                        800: '#0C2335',
+                        900: '#0B1C2A',
+                        950: '#08141e',
+                    },
+                    ochre: '#814e16',
+                },
+            }
+        }}
+    </script>
+</head>
+
+<body class="h-screen bg-fixed bg-gradient-to-b from-midnight-950 to-midnight-900">
+    <div class="flex flex-col md:flex-row pt-4 mx-6 justify-between items-center">
+        <!-- Back to Menu Button: aligned left -->
+        <div class="w-full md:w-auto text-left min-w-32">
+            <button id="back-to-menu"
+                onclick="window.location.href='../index.html'"
+                class="flex items-center gap-2 min-h-10 px-4 rounded-full 
+                bg-midnight-700 hover:bg-midnight-600 shadow-md shadow-midnight-950/50">
+                <span class="text-xl font-bold text-midnight-100 font-mono">◀</span>
+                <span class="text-xl font-bold text-midnight-100 pb-[5px]">ᴍᴇɴᴜ</span>
+            </button>
+        </div>
+        <!-- Headers: centered to the parent, not just its own width -->
+        <div class="text-center">
+            <h2 class="text-2xl font-bold text-midnight-400">Dungeons & Dragons</h2>
+            <h3 class="text-lg font-semibold text-midnight-500"><i>5th Edition</i></h3>
+        </div>
+        <div class="min-w-32"></div>
+    </div>
+
+    <h1 class="text-center text-4xl font-bold text-midnight-200 my-2">Monster Statblocks</h1>
+
+    <div class="mt-4 mx-6 border-4 border-midnight-700/50 rounded-full"></div> <!-- line separator -->
+
+    <!-- Favorites toggle -->
+    <div class="text-center justify-between items-center mx-6 mt-3 mb-1">
+        <button id="toggle-favorites"
+            class="px-4 py-2 rounded-full text-midnight-300 hover:text-midnight-200 bg-midnight-700/50 hover:bg-midnight-700 shadow-md shadow-midnight-950/50 transition">
+            Show only favorites
+        </button>
+    </div>
+
+    <!-- Error message container -->
+    <div id="error-container" class="hidden mx-10 mt-4 p-4 bg-red-900/30 border-2 border-red-700/50 rounded-lg">
+        <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-red-700 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <div class="flex-1">
+                <h3 class="text-midnight-100 font-bold text-lg">Error Loading Monsters</h3>
+                <p id="error-message" class="text-midnight-300 mt-1"></p>
+            </div>
+            <button id="retry-button" class="px-4 py-2 bg-midnight-100 font-semibold hover:bg-midnight-200 text-midnight-950 rounded-full transition">
+                Retry
+            </button>
+        </div>
+    </div>
+
+    <div id="statblock-container" 
+        class="m-6 auto-rows-min grid gap-4 place-items-center
+            grid-cols-1
+            md:grid-cols-2
+            xl:grid-cols-3 
+            2xl:grid-cols-4 
+            3xl:grid-cols-5">
+
+        <div id="statblock-prefab" class="bg-gradient-to-b from-midnight-600 to-midnight-700 rounded-lg shadow-md p-4 max-w-lg w-full hidden">
+            <div class="flex flex-col gap-2">
+                <!-- Top section: Monster Name & Icon -->
+                <div class="monster-name-info">
+                    <div class="flex mx-2 gap-2 justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <button class="favorite-toggle text-midnight-950/50 hover:text-yellow-400 transition" aria-pressed="false" title="Toggle favorite">
+                                <svg viewBox="0 -20 640 640" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+                                    <path d="M341.5 45.1C337.4 37.1 329.1 32 320.1 32C311.1 32 302.8 37.1 298.7 45.1L225.1 189.3L65.2 214.7C56.3 216.1 48.9 222.4 46.1 231C43.3 239.6 45.6 249 51.9 255.4L166.3 369.9L141.1 529.8C139.7 538.7 143.4 547.7 150.7 553C158 558.3 167.6 559.1 175.7 555L320.1 481.6L464.4 555C472.4 559.1 482.1 558.3 489.4 553C496.7 547.7 500.4 538.8 499 529.8L473.7 369.9L588.1 255.4C594.5 249 596.7 239.6 593.9 231C591.1 222.4 583.8 216.1 574.8 214.7L415 189.3L341.5 45.1z" />
+                                </svg>
+                            </button>
+                            <h1 class="monster-name text-2xl font-bold text-midnight-100 py-1">Monster Name</h1>
+                        </div>
+                        <div class="monster-type-icon w-10 h-10 flex-shrink-0 align-top">
+                            <img src="img/fallback_img.png" alt="type_icon" class="type-icon h-full object-cover rounded-full shadow-md shadow-midnight-950/50" />
+                        </div>
+                    </div>
+                    
+                    <h3 class="monster-type text-left mx-2 text-midnight-400 italic">Type, Size, Alignment</h3>
+                </div>
+
+
+                <!-- Middle section: Monster Image & Stats -->
+                <div class="flex flex-col lg:flex-row w-full gap-2 items-stretch">
+                    <div class="monster-img-wrapper w-full lg:w-4/5 flex-shrink-0 p-2 overflow-hidden">
+                        <img data-src="img/loading_img.png" class="lazy-img opacity-25 transition-opacity duration-500 ease-in-out w-full h-auto aspect-square object-cover rounded-lg" alt="monster_img" />
+                    </div>
+                    <div class="monster-main-stats w-full lg:py-2 lg:w-1/5 min-w-0 flex flex-row lg:flex-col gap-2 text-center">
+                        <div class="monster-stat-block flex-1">
+                            <div class="stat-value text-midnight-100 text-lg mx-2 py-2 rounded-lg bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-midnight-950/30"></div>
+                                <h3 class="relative">-</h3>
+                            </div>
+                            <div class="stat-label text-midnight-400 text-xl font-bold">AC</div>
+                        </div>
+                        <div class="monster-stat-block flex-1">
+                            <div class="stat-value text-midnight-100 text-lg mx-2 py-2 rounded-lg bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-midnight-950/30"></div>
+                                <h3 class="relative">-</h3>
+                            </div>
+                            <div class="stat-label text-midnight-400 text-xl font-bold">HP</div>
+                        </div>
+                        <div class="monster-stat-block flex-1">
+                            <div class="stat-value text-midnight-100 text-lg mx-2 py-2 rounded-lg bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-midnight-950/30"></div>
+                                <h3 class="relative">-</h3>
+                            </div>
+                            <div class="stat-label text-midnight-400 text-xl font-bold">CR</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-2 mx-2 border-midnight-500 rounded-full"></div>
+
+                <!-- Ability Scores: STR, DEX, CON, INT, WIS, CHA -->
+                <div class="monster-ability-scores flex flex-row gap-2 px-2 text-center">
+                    <div class="ability-score flex flex-col flex-1">
+                        <div class="score-label text-midnight-400 font-bold">STR</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
+                    </div>
+                    <div class="ability-score flex flex-col flex-1">
+                        <div class="score-label text-midnight-400 font-bold">DEX</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
+                    </div>
+                    <div class="ability-score flex flex-col flex-1">
+                        <div class="score-label text-midnight-400 font-bold">CON</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
+                    </div>
+                    <div class="ability-score flex flex-col flex-1">
+                        <div class="score-label text-midnight-400 font-bold">INT</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
+                    </div>
+                    <div class="ability-score flex flex-col flex-1">
+                        <div class="score-label text-midnight-400 font-bold">WIS</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
+                    </div>
+                    <div class="ability-score flex flex-col flex-1">
+                        <div class="score-label text-midnight-400 font-bold">CHA</div>
+                        <div class="score-mod text-midnight-100 text-lg mt-1 rounded-lg 
+                        bg-transparent shadow-inner shadow-midnight-950/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-midnight-950/30"></div>
+                            <h3 class="relative">mod</h3>
+                        </div>
+                        <div class="score-stat text-midnight-100">stat</div>
+                    </div>
+                </div>
+
+                <div class="border-2 mx-2 border-midnight-500 rounded-full"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sentinel for lazy rendering -->
+    <div id="scroll-sentinel" class="flex h-16"></div>
+
+    <button id="back-to-top" class="fixed bottom-8 right-10 pt-[6px] pb-[10px] min-w-11 rounded-full 
+    text-center text-xl font-bold text-midnight-100 bg-indigo-900 hover:bg-midnight-700  
+    shadow-md shadow-midnight-950/50
+    pointer-events-none transition-opacity opacity-0 duration-300 ease-in-out">
+        ▲
+    </button>
+
+    <script src="mulAPI.js"> </script>
+</body>
+
+</html>

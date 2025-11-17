@@ -1,0 +1,54 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Monster } from './schemas/monster.schema';
+import { CreateMonsterDto, UpdateMonsterDto } from './dto/monster.dto';
+
+@Injectable()
+export class MonstersService {
+  constructor(@InjectModel(Monster.name) private monsterModel: Model<Monster>) {}
+
+
+  /*  Base GET: minimal list (index, name, url)  */
+  async getAll(): Promise<Array<{ index: string; name: string; url: string; favorite: boolean }>> {
+    const docs = await this.monsterModel
+      .find({})
+      .select('index name url favorite -_id')
+      .lean()
+      .exec();
+    return (docs as any[]).map(d => ({ 
+      index: d.index, 
+      name: d.name, 
+      url: d.url, 
+      favorite: d.favorite ?? false 
+    }));
+  }
+  
+  /*  Full list of monsters (all fields)  */
+  async listFull(): Promise<Monster[]> {
+    return this.monsterModel.find().exec();
+  }
+
+  /*  Full monster by index (id)  */
+  async findOneFull(index: string): Promise<Monster> {
+    const monster = await this.monsterModel.findOne({ index }).exec();
+    if (!monster) throw new NotFoundException(`Monster '${index}' not found`);
+    return monster;
+  }
+
+  /*  Toggle favorite flag, return new state  */
+  async toggleFavorite(index: string): Promise<{ index: string; favorite: boolean }> {
+    const monster = await this.monsterModel.findOne({ index }).exec();
+    if (!monster) throw new NotFoundException(`Monster '${index}' not found`);
+    monster.favorite = !monster.favorite;
+    await monster.save();
+    return { index: monster.index, favorite: monster.favorite };
+  }
+
+  /*  Create a new monster  */
+  async create(createDto: CreateMonsterDto): Promise<Monster> {
+    const created = new this.monsterModel(createDto);
+    return await created.save();
+  }
+}

@@ -1,0 +1,1673 @@
+// Mongo init script executed by official mongo image on first container start.
+// Ensures the 'dnd' database has a 'monsters' collection seeded with sample data.
+
+const dbName = 'monstersDB';
+const collectionName = 'monsters';
+
+const db = db.getSiblingDB(dbName);
+
+// Create collection if missing
+if (!db.getCollectionNames().includes(collectionName)) {
+	db.createCollection(collectionName);
+}
+
+// Ensure unique index on 'index' field
+db[collectionName].createIndex({ index: 1 }, { unique: true });
+
+const count = db[collectionName].countDocuments();
+if (count === 0) {
+	print(`Seeding '${collectionName}' collection in '${dbName}' database...`);
+	db[collectionName].insertMany([
+  {
+    index: 'aboleth',
+    favorite: false,
+    name: 'Aboleth',
+    size: 'Large',
+    type: 'aberration',
+    alignment: 'lawful evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 17
+      }
+    ],
+    hit_points: 135,
+    speed: {
+      walk: '10 ft.',
+      swim: '40 ft.'
+    },
+    strength: 21,
+    dexterity: 9,
+    constitution: 15,
+    intelligence: 18,
+    wisdom: 15,
+    charisma: 18,
+    senses: {
+      darkvision: '120 ft.',
+      passive_perception: 20
+    },
+    challenge_rating: 10,
+    image: '/api/images/monsters/aboleth.png',
+    url: '/monsters/aboleth'
+  },
+  {
+    index: 'acolyte',
+    favorite: false,
+    name: 'Acolyte',
+    size: 'Medium',
+    type: 'humanoid',
+    alignment: 'any alignment',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 10
+      }
+    ],
+    hit_points: 9,
+    speed: {
+      walk: '30 ft.'
+    },
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 14,
+    charisma: 11,
+    senses: {
+      passive_perception: 12
+    },
+    challenge_rating: 0.25,
+    image: '/api/images/monsters/acolyte.png',
+    url: '/monsters/acolyte'
+  },
+  {
+    index: 'adult-black-dragon',
+    favorite: false,
+    name: 'Adult Black Dragon',
+    size: 'Huge',
+    type: 'dragon',
+    alignment: 'chaotic evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 19
+      }
+    ],
+    hit_points: 195,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.',
+      swim: '40 ft.'
+    },
+    strength: 23,
+    dexterity: 14,
+    constitution: 21,
+    intelligence: 14,
+    wisdom: 13,
+    charisma: 17,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 21
+    },
+    challenge_rating: 14,
+    image: '/api/images/monsters/adult-black-dragon.png',
+    url: '/monsters/adult-black-dragon'
+  },
+  {
+    index: 'adult-blue-dragon',
+    favorite: false,
+    name: 'Adult Blue Dragon',
+    size: 'Huge',
+    type: 'dragon',
+    alignment: 'lawful evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 19
+      }
+    ],
+    hit_points: 225,
+    speed: {
+      walk: '40 ft.',
+      burrow: '30 ft.',
+      fly: '80 ft.'
+    },
+    strength: 25,
+    dexterity: 10,
+    constitution: 23,
+    intelligence: 16,
+    wisdom: 15,
+    charisma: 19,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 22
+    },
+    challenge_rating: 16,
+    image: '/api/images/monsters/adult-blue-dragon.png',
+    url: '/monsters/adult-blue-dragon'
+  },
+  {
+    index: 'adult-brass-dragon',
+    favorite: false,
+    name: 'Adult Brass Dragon',
+    size: 'Huge',
+    type: 'dragon',
+    alignment: 'chaotic good',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 18
+      }
+    ],
+    hit_points: 172,
+    speed: {
+      walk: '40 ft.',
+      burrow: '40 ft.',
+      fly: '80 ft.'
+    },
+    strength: 23,
+    dexterity: 10,
+    constitution: 21,
+    intelligence: 14,
+    wisdom: 13,
+    charisma: 17,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 21
+    },
+    challenge_rating: 13,
+    image: '/api/images/monsters/adult-brass-dragon.png',
+    url: '/monsters/adult-brass-dragon'
+  },
+  {
+    index: 'adult-bronze-dragon',
+    favorite: false,
+    name: 'Adult Bronze Dragon',
+    size: 'Huge',
+    type: 'dragon',
+    alignment: 'lawful good',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 19
+      }
+    ],
+    hit_points: 212,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.',
+      swim: '40 ft.'
+    },
+    strength: 25,
+    dexterity: 10,
+    constitution: 23,
+    intelligence: 16,
+    wisdom: 15,
+    charisma: 19,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 22
+    },
+    challenge_rating: 15,
+    image: '/api/images/monsters/adult-bronze-dragon.png',
+    url: '/monsters/adult-bronze-dragon'
+  },
+  {
+    index: 'adult-copper-dragon',
+    favorite: false,
+    name: 'Adult Copper Dragon',
+    size: 'Huge',
+    type: 'dragon',
+    alignment: 'chaotic good',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 18
+      }
+    ],
+    hit_points: 184,
+    speed: {
+      walk: '40 ft.',
+      climb: '40 ft.',
+      fly: '80 ft.'
+    },
+    strength: 23,
+    dexterity: 12,
+    constitution: 21,
+    intelligence: 18,
+    wisdom: 15,
+    charisma: 17,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 22
+    },
+    challenge_rating: 14,
+    image: '/api/images/monsters/adult-copper-dragon.png',
+    url: '/monsters/adult-copper-dragon'
+  },
+  {
+    index: 'adult-gold-dragon',
+    favorite: false,
+    name: 'Adult Gold Dragon',
+    size: 'Huge',
+    type: 'dragon',
+    alignment: 'lawful good',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 19
+      }
+    ],
+    hit_points: 256,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.',
+      swim: '40 ft.'
+    },
+    strength: 27,
+    dexterity: 14,
+    constitution: 25,
+    intelligence: 16,
+    wisdom: 15,
+    charisma: 24,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 24
+    },
+    challenge_rating: 17,
+    image: '/api/images/monsters/adult-gold-dragon.png',
+    url: '/monsters/adult-gold-dragon'
+  },
+  {
+    index: 'adult-green-dragon',
+    favorite: false,
+    name: 'Adult Green Dragon',
+    size: 'Huge',
+    type: 'dragon',
+    alignment: 'lawful evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 19
+      }
+    ],
+    hit_points: 207,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.',
+      swim: '40 ft.'
+    },
+    strength: 23,
+    dexterity: 12,
+    constitution: 21,
+    intelligence: 18,
+    wisdom: 15,
+    charisma: 17,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 22
+    },
+    challenge_rating: 15,
+    image: '/api/images/monsters/adult-green-dragon.png',
+    url: '/monsters/adult-green-dragon'
+  },
+  {
+    index: 'adult-red-dragon',
+    favorite: false,
+    name: 'Adult Red Dragon',
+    size: 'Huge',
+    type: 'dragon',
+    alignment: 'chaotic evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 19
+      }
+    ],
+    hit_points: 256,
+    speed: {
+      walk: '40 ft.',
+      climb: '40 ft.',
+      fly: '80 ft.'
+    },
+    strength: 27,
+    dexterity: 10,
+    constitution: 25,
+    intelligence: 16,
+    wisdom: 13,
+    charisma: 21,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 23
+    },
+    challenge_rating: 17,
+    image: '/api/images/monsters/adult-red-dragon.png',
+    url: '/monsters/adult-red-dragon'
+  },
+  {
+    index: 'adult-silver-dragon',
+    favorite: false,
+    name: 'Adult Silver Dragon',
+    size: 'Huge',
+    type: 'dragon',
+    alignment: 'lawful good',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 19
+      }
+    ],
+    hit_points: 243,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.'
+    },
+    strength: 27,
+    dexterity: 10,
+    constitution: 25,
+    intelligence: 16,
+    wisdom: 13,
+    charisma: 21,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 21
+    },
+    challenge_rating: 16,
+    image: '/api/images/monsters/adult-silver-dragon.png',
+    url: '/monsters/adult-silver-dragon'
+  },
+  {
+    index: 'adult-white-dragon',
+    favorite: false,
+    name: 'Adult White Dragon',
+    size: 'Huge',
+    type: 'dragon',
+    alignment: 'chaotic evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 18
+      }
+    ],
+    hit_points: 200,
+    speed: {
+      walk: '40 ft.',
+      burrow: '30 ft.',
+      fly: '80 ft.',
+      swim: '40 ft.'
+    },
+    strength: 22,
+    dexterity: 10,
+    constitution: 22,
+    intelligence: 8,
+    wisdom: 12,
+    charisma: 12,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 21
+    },
+    challenge_rating: 13,
+    image: '/api/images/monsters/adult-white-dragon.png',
+    url: '/monsters/adult-white-dragon'
+  },
+  {
+    index: 'air-elemental',
+    favorite: false,
+    name: 'Air Elemental',
+    size: 'Large',
+    type: 'elemental',
+    alignment: 'neutral',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 15
+      }
+    ],
+    hit_points: 90,
+    speed: {
+      fly: '90 ft.',
+      hover: true
+    },
+    strength: 14,
+    dexterity: 20,
+    constitution: 14,
+    intelligence: 6,
+    wisdom: 10,
+    charisma: 6,
+    senses: {
+      darkvision: '60 ft.',
+      passive_perception: 10
+    },
+    challenge_rating: 5,
+    image: '/api/images/monsters/air-elemental.png',
+    url: '/monsters/air-elemental'
+  },
+  {
+    index: 'ancient-black-dragon',
+    favorite: false,
+    name: 'Ancient Black Dragon',
+    size: 'Gargantuan',
+    type: 'dragon',
+    alignment: 'chaotic evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 22
+      }
+    ],
+    hit_points: 367,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.',
+      swim: '40 ft.'
+    },
+    strength: 27,
+    dexterity: 14,
+    constitution: 25,
+    intelligence: 16,
+    wisdom: 15,
+    charisma: 19,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 26
+    },
+    challenge_rating: 21,
+    image: '/api/images/monsters/ancient-black-dragon.png',
+    url: '/monsters/ancient-black-dragon'
+  },
+  {
+    index: 'ancient-blue-dragon',
+    favorite: false,
+    name: 'Ancient Blue Dragon',
+    size: 'Gargantuan',
+    type: 'dragon',
+    alignment: 'lawful evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 22
+      }
+    ],
+    hit_points: 481,
+    speed: {
+      walk: '40 ft.',
+      burrow: '40 ft.',
+      fly: '80 ft.'
+    },
+    strength: 29,
+    dexterity: 10,
+    constitution: 27,
+    intelligence: 18,
+    wisdom: 17,
+    charisma: 21,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 27
+    },
+    challenge_rating: 23,
+    image: '/api/images/monsters/ancient-blue-dragon.png',
+    url: '/monsters/ancient-blue-dragon'
+  },
+  {
+    index: 'ancient-brass-dragon',
+    favorite: false,
+    name: 'Ancient Brass Dragon',
+    size: 'Gargantuan',
+    type: 'dragon',
+    alignment: 'chaotic good',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 20
+      }
+    ],
+    hit_points: 297,
+    speed: {
+      walk: '40 ft.',
+      burrow: '40 ft.',
+      fly: '80 ft.'
+    },
+    strength: 27,
+    dexterity: 10,
+    constitution: 25,
+    intelligence: 16,
+    wisdom: 15,
+    charisma: 19,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 24
+    },
+    challenge_rating: 20,
+    image: '/api/images/monsters/ancient-brass-dragon.png',
+    url: '/monsters/ancient-brass-dragon'
+  },
+  {
+    index: 'ancient-bronze-dragon',
+    favorite: false,
+    name: 'Ancient Bronze Dragon',
+    size: 'Gargantuan',
+    type: 'dragon',
+    alignment: 'lawful good',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 22
+      }
+    ],
+    hit_points: 444,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.',
+      swim: '40 ft.'
+    },
+    strength: 29,
+    dexterity: 10,
+    constitution: 27,
+    intelligence: 18,
+    wisdom: 17,
+    charisma: 21,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 27
+    },
+    challenge_rating: 22,
+    image: '/api/images/monsters/ancient-bronze-dragon.png',
+    url: '/monsters/ancient-bronze-dragon'
+  },
+  {
+    index: 'ancient-copper-dragon',
+    favorite: false,
+    name: 'Ancient Copper Dragon',
+    size: 'Gargantuan',
+    type: 'dragon',
+    alignment: 'chaotic good',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 21
+      }
+    ],
+    hit_points: 350,
+    speed: {
+      walk: '40 ft.',
+      climb: '40 ft.',
+      fly: '80 ft.'
+    },
+    strength: 27,
+    dexterity: 12,
+    constitution: 25,
+    intelligence: 20,
+    wisdom: 17,
+    charisma: 19,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 27
+    },
+    challenge_rating: 21,
+    image: '/api/images/monsters/ancient-copper-dragon.png',
+    url: '/monsters/ancient-copper-dragon'
+  },
+  {
+    index: 'ancient-gold-dragon',
+    favorite: false,
+    name: 'Ancient Gold Dragon',
+    size: 'Gargantuan',
+    type: 'dragon',
+    alignment: 'lawful good',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 22
+      }
+    ],
+    hit_points: 546,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.',
+      swim: '40 ft.'
+    },
+    strength: 30,
+    dexterity: 14,
+    constitution: 29,
+    intelligence: 18,
+    wisdom: 17,
+    charisma: 28,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 27
+    },
+    challenge_rating: 24,
+    image: '/api/images/monsters/ancient-gold-dragon.png',
+    url: '/monsters/ancient-gold-dragon'
+  },
+  {
+    index: 'ancient-green-dragon',
+    favorite: false,
+    name: 'Ancient Green Dragon',
+    size: 'Gargantuan',
+    type: 'dragon',
+    alignment: 'lawful evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 21
+      }
+    ],
+    hit_points: 385,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.',
+      swim: '40 ft.'
+    },
+    strength: 27,
+    dexterity: 12,
+    constitution: 25,
+    intelligence: 20,
+    wisdom: 17,
+    charisma: 19,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 27
+    },
+    challenge_rating: 22,
+    image: '/api/images/monsters/ancient-green-dragon.png',
+    url: '/monsters/ancient-green-dragon'
+  },
+  {
+    index: 'ancient-red-dragon',
+    favorite: false,
+    name: 'Ancient Red Dragon',
+    size: 'Gargantuan',
+    type: 'dragon',
+    alignment: 'chaotic evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 22
+      }
+    ],
+    hit_points: 546,
+    speed: {
+      walk: '40 ft.',
+      climb: '40 ft.',
+      fly: '80 ft.'
+    },
+    strength: 30,
+    dexterity: 10,
+    constitution: 29,
+    intelligence: 18,
+    wisdom: 15,
+    charisma: 23,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 26
+    },
+    challenge_rating: 24,
+    image: '/api/images/monsters/ancient-red-dragon.png',
+    url: '/monsters/ancient-red-dragon'
+  },
+  {
+    index: 'ancient-silver-dragon',
+    favorite: false,
+    name: 'Ancient Silver Dragon',
+    size: 'Gargantuan',
+    type: 'dragon',
+    alignment: 'lawful good',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 22
+      }
+    ],
+    hit_points: 487,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.'
+    },
+    strength: 30,
+    dexterity: 10,
+    constitution: 29,
+    intelligence: 18,
+    wisdom: 15,
+    charisma: 23,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 26
+    },
+    challenge_rating: 23,
+    image: '/api/images/monsters/ancient-silver-dragon.png',
+    url: '/monsters/ancient-silver-dragon'
+  },
+  {
+    index: 'ancient-white-dragon',
+    favorite: false,
+    name: 'Ancient White Dragon',
+    size: 'Gargantuan',
+    type: 'dragon',
+    alignment: 'chaotic evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 20
+      }
+    ],
+    hit_points: 333,
+    speed: {
+      walk: '40 ft.',
+      burrow: '40 ft.',
+      fly: '80 ft.',
+      swim: '40 ft.'
+    },
+    strength: 26,
+    dexterity: 10,
+    constitution: 26,
+    intelligence: 10,
+    wisdom: 13,
+    charisma: 14,
+    senses: {
+      blindsight: '60 ft.',
+      darkvision: '120 ft.',
+      passive_perception: 23
+    },
+    challenge_rating: 20,
+    image: '/api/images/monsters/ancient-white-dragon.png',
+    url: '/monsters/ancient-white-dragon'
+  },
+  {
+    index: 'androsphinx',
+    favorite: false,
+    name: 'Androsphinx',
+    size: 'Large',
+    type: 'monstrosity',
+    alignment: 'lawful neutral',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 17
+      }
+    ],
+    hit_points: 199,
+    speed: {
+      walk: '40 ft.',
+      fly: '60 ft.'
+    },
+    strength: 22,
+    dexterity: 10,
+    constitution: 20,
+    intelligence: 16,
+    wisdom: 18,
+    charisma: 23,
+    senses: {
+      truesight: '120 ft.',
+      passive_perception: 20
+    },
+    challenge_rating: 17,
+    image: '/api/images/monsters/androsphinx.png',
+    url: '/monsters/androsphinx'
+  },
+  {
+    index: 'animated-armor',
+    favorite: false,
+    name: 'Animated Armor',
+    size: 'Medium',
+    type: 'construct',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 18
+      }
+    ],
+    hit_points: 33,
+    speed: {
+      walk: '25 ft.'
+    },
+    strength: 14,
+    dexterity: 11,
+    constitution: 13,
+    intelligence: 1,
+    wisdom: 3,
+    charisma: 1,
+    senses: {
+      blindsight: '60 ft. (blind beyond this radius)',
+      passive_perception: 6
+    },
+    challenge_rating: 1,
+    image: '/api/images/monsters/animated-armor.png',
+    url: '/monsters/animated-armor'
+  },
+  {
+    index: 'ankheg',
+    favorite: false,
+    name: 'Ankheg',
+    size: 'Large',
+    type: 'monstrosity',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 14
+      },
+      {
+        type: 'condition',
+        value: 11,
+        condition: {
+          index: 'prone',
+          name: 'Prone',
+          url: '/api/2014/conditions/prone'
+        }
+      }
+    ],
+    hit_points: 39,
+    speed: {
+      walk: '30 ft.',
+      burrow: '10 ft.'
+    },
+    strength: 17,
+    dexterity: 11,
+    constitution: 13,
+    intelligence: 1,
+    wisdom: 13,
+    charisma: 6,
+    senses: {
+      darkvision: '60 ft.',
+      tremorsense: '60 ft.',
+      passive_perception: 11
+    },
+    challenge_rating: 2,
+    image: '/api/images/monsters/ankheg.png',
+    url: '/monsters/ankheg'
+  },
+  {
+    index: 'ape',
+    favorite: false,
+    name: 'Ape',
+    size: 'Medium',
+    type: 'beast',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 12
+      }
+    ],
+    hit_points: 19,
+    speed: {
+      walk: '30 ft.',
+      climb: '30 ft.'
+    },
+    strength: 16,
+    dexterity: 14,
+    constitution: 14,
+    intelligence: 6,
+    wisdom: 12,
+    charisma: 7,
+    senses: {
+      passive_perception: 13
+    },
+    challenge_rating: 0.5,
+    image: '/api/images/monsters/ape.png',
+    url: '/monsters/ape'
+  },
+  {
+    index: 'archmage',
+    favorite: false,
+    name: 'Archmage',
+    size: 'Medium',
+    type: 'humanoid',
+    alignment: 'any alignment',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 12
+      },
+      {
+        type: 'spell',
+        value: 15,
+        spell: {
+          index: 'mage-armor',
+          name: 'Mage Armor',
+          url: '/api/2014/spells/mage-armor'
+        }
+      }
+    ],
+    hit_points: 99,
+    speed: {
+      walk: '30 ft.'
+    },
+    strength: 10,
+    dexterity: 14,
+    constitution: 12,
+    intelligence: 20,
+    wisdom: 15,
+    charisma: 16,
+    senses: {
+      passive_perception: 12
+    },
+    challenge_rating: 12,
+    image: '/api/images/monsters/archmage.png',
+    url: '/monsters/archmage'
+  },
+  {
+    index: 'assassin',
+    favorite: false,
+    name: 'Assassin',
+    size: 'Medium',
+    type: 'humanoid',
+    alignment: 'any non-good alignment',
+    armor_class: [
+      {
+        type: 'armor',
+        value: 15,
+        armor: [
+          {
+            index: 'studded-leather-armor',
+            name: 'Studded Leather Armor',
+            url: '/api/2014/equipment/studded-leather-armor'
+          }
+        ]
+      }
+    ],
+    hit_points: 78,
+    speed: {
+      walk: '30 ft.'
+    },
+    strength: 11,
+    dexterity: 16,
+    constitution: 14,
+    intelligence: 13,
+    wisdom: 11,
+    charisma: 10,
+    senses: {
+      passive_perception: 13
+    },
+    challenge_rating: 8,
+    image: '/api/images/monsters/assassin.png',
+    url: '/monsters/assassin'
+  },
+  {
+    index: 'awakened-shrub',
+    favorite: false,
+    name: 'Awakened Shrub',
+    size: 'Small',
+    type: 'plant',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 9
+      }
+    ],
+    hit_points: 10,
+    speed: {
+      walk: '20 ft.'
+    },
+    strength: 3,
+    dexterity: 8,
+    constitution: 11,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 6,
+    senses: {
+      passive_perception: 10
+    },
+    challenge_rating: 0,
+    image: '/api/images/monsters/awakened-shrub.png',
+    url: '/monsters/awakened-shrub'
+  },
+  {
+    index: 'awakened-tree',
+    favorite: false,
+    name: 'Awakened Tree',
+    size: 'Huge',
+    type: 'plant',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 13
+      }
+    ],
+    hit_points: 59,
+    speed: {
+      walk: '20 ft.'
+    },
+    strength: 19,
+    dexterity: 6,
+    constitution: 15,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 7,
+    senses: {
+      passive_perception: 10
+    },
+    challenge_rating: 2,
+    image: '/api/images/monsters/awakened-tree.png',
+    url: '/monsters/awakened-tree'
+  },
+  {
+    index: 'axe-beak',
+    favorite: false,
+    name: 'Axe Beak',
+    size: 'Large',
+    type: 'beast',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 11
+      }
+    ],
+    hit_points: 19,
+    speed: {
+      walk: '50 ft.'
+    },
+    strength: 14,
+    dexterity: 12,
+    constitution: 12,
+    intelligence: 2,
+    wisdom: 10,
+    charisma: 5,
+    senses: {
+      passive_perception: 10
+    },
+    challenge_rating: 0.25,
+    image: '/api/images/monsters/axe-beak.png',
+    url: '/monsters/axe-beak'
+  },
+  {
+    index: 'azer',
+    favorite: false,
+    name: 'Azer',
+    size: 'Medium',
+    type: 'elemental',
+    alignment: 'lawful neutral',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 15
+      },
+      {
+        type: 'armor',
+        value: 17,
+        armor: [
+          {
+            index: 'shield',
+            name: 'Shield',
+            url: '/api/2014/equipment/shield'
+          }
+        ]
+      }
+    ],
+    hit_points: 39,
+    speed: {
+      walk: '30 ft.'
+    },
+    strength: 17,
+    dexterity: 12,
+    constitution: 15,
+    intelligence: 12,
+    wisdom: 13,
+    charisma: 10,
+    senses: {
+      passive_perception: 11
+    },
+    challenge_rating: 2,
+    image: '/api/images/monsters/azer.png',
+    url: '/monsters/azer'
+  },
+  {
+    index: 'baboon',
+    favorite: false,
+    name: 'Baboon',
+    size: 'Small',
+    type: 'beast',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 12
+      }
+    ],
+    hit_points: 3,
+    speed: {
+      walk: '30 ft.',
+      climb: '30 ft.'
+    },
+    strength: 8,
+    dexterity: 14,
+    constitution: 11,
+    intelligence: 4,
+    wisdom: 12,
+    charisma: 6,
+    senses: {
+      passive_perception: 11
+    },
+    challenge_rating: 0,
+    image: '/api/images/monsters/baboon.png',
+    url: '/monsters/baboon'
+  },
+  {
+    index: 'badger',
+    favorite: false,
+    name: 'Badger',
+    size: 'Tiny',
+    type: 'beast',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 10
+      }
+    ],
+    hit_points: 3,
+    speed: {
+      walk: '20 ft.',
+      burrow: '5 ft.'
+    },
+    strength: 4,
+    dexterity: 11,
+    constitution: 12,
+    intelligence: 2,
+    wisdom: 12,
+    charisma: 5,
+    senses: {
+      darkvision: '30 ft.',
+      passive_perception: 11
+    },
+    challenge_rating: 0,
+    image: '/api/images/monsters/badger.png',
+    url: '/monsters/badger'
+  },
+  {
+    index: 'balor',
+    favorite: false,
+    name: 'Balor',
+    size: 'Huge',
+    type: 'fiend',
+    alignment: 'chaotic evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 19
+      }
+    ],
+    hit_points: 262,
+    speed: {
+      walk: '40 ft.',
+      fly: '80 ft.'
+    },
+    strength: 26,
+    dexterity: 15,
+    constitution: 22,
+    intelligence: 20,
+    wisdom: 16,
+    charisma: 22,
+    senses: {
+      truesight: '120 ft.',
+      passive_perception: 13
+    },
+    challenge_rating: 19,
+    image: '/api/images/monsters/balor.png',
+    url: '/monsters/balor'
+  },
+  {
+    index: 'bandit',
+    favorite: false,
+    name: 'Bandit',
+    size: 'Medium',
+    type: 'humanoid',
+    alignment: 'any non-lawful alignment',
+    armor_class: [
+      {
+        type: 'armor',
+        value: 12,
+        armor: [
+          {
+            index: 'leather-armor',
+            name: 'Leather Armor',
+            url: '/api/2014/equipment/leather-armor'
+          }
+        ]
+      }
+    ],
+    hit_points: 11,
+    speed: {
+      walk: '30 ft.'
+    },
+    strength: 11,
+    dexterity: 12,
+    constitution: 12,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    senses: {
+      passive_perception: 10
+    },
+    challenge_rating: 0.125,
+    image: '/api/images/monsters/bandit.png',
+    url: '/monsters/bandit'
+  },
+  {
+    index: 'bandit-captain',
+    favorite: false,
+    name: 'Bandit Captain',
+    size: 'Medium',
+    type: 'humanoid',
+    alignment: 'any non-lawful alignment',
+    armor_class: [
+      {
+        type: 'armor',
+        value: 15,
+        armor: [
+          {
+            index: 'studded-leather-armor',
+            name: 'Studded Leather Armor',
+            url: '/api/2014/equipment/studded-leather-armor'
+          }
+        ]
+      }
+    ],
+    hit_points: 65,
+    speed: {
+      walk: '30 ft.'
+    },
+    strength: 15,
+    dexterity: 16,
+    constitution: 14,
+    intelligence: 14,
+    wisdom: 11,
+    charisma: 14,
+    senses: {
+      passive_perception: 10
+    },
+    challenge_rating: 2,
+    image: '/api/images/monsters/bandit-captain.png',
+    url: '/monsters/bandit-captain'
+  },
+  {
+    index: 'barbed-devil',
+    favorite: false,
+    name: 'Barbed Devil',
+    size: 'Medium',
+    type: 'fiend',
+    alignment: 'lawful evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 15
+      }
+    ],
+    hit_points: 110,
+    speed: {
+      walk: '30 ft.'
+    },
+    strength: 16,
+    dexterity: 17,
+    constitution: 18,
+    intelligence: 12,
+    wisdom: 14,
+    charisma: 14,
+    senses: {
+      darkvision: '120 ft.',
+      passive_perception: 18
+    },
+    challenge_rating: 5,
+    image: '/api/images/monsters/barbed-devil.png',
+    url: '/monsters/barbed-devil'
+  },
+  {
+    index: 'basilisk',
+    favorite: false,
+    name: 'Basilisk',
+    size: 'Medium',
+    type: 'monstrosity',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 12
+      }
+    ],
+    hit_points: 52,
+    speed: {
+      walk: '20 ft.'
+    },
+    strength: 16,
+    dexterity: 8,
+    constitution: 15,
+    intelligence: 2,
+    wisdom: 8,
+    charisma: 7,
+    senses: {
+      darkvision: '60 ft.',
+      passive_perception: 9
+    },
+    challenge_rating: 3,
+    image: '/api/images/monsters/basilisk.png',
+    url: '/monsters/basilisk'
+  },
+  {
+    index: 'bat',
+    favorite: false,
+    name: 'Bat',
+    size: 'Tiny',
+    type: 'beast',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 12
+      }
+    ],
+    hit_points: 1,
+    speed: {
+      walk: '5 ft.',
+      fly: '30 ft.'
+    },
+    strength: 2,
+    dexterity: 15,
+    constitution: 8,
+    intelligence: 2,
+    wisdom: 12,
+    charisma: 4,
+    senses: {
+      blindsight: '60 ft.',
+      passive_perception: 11
+    },
+    challenge_rating: 0,
+    image: '/api/images/monsters/bat.png',
+    url: '/monsters/bat'
+  },
+  {
+    index: 'bearded-devil',
+    favorite: false,
+    name: 'Bearded Devil',
+    size: 'Medium',
+    type: 'fiend',
+    alignment: 'lawful evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 13
+      }
+    ],
+    hit_points: 52,
+    speed: {
+      walk: '30 ft.'
+    },
+    strength: 16,
+    dexterity: 15,
+    constitution: 15,
+    intelligence: 9,
+    wisdom: 11,
+    charisma: 11,
+    senses: {
+      darkvision: '120 ft.',
+      passive_perception: 10
+    },
+    challenge_rating: 3,
+    image: '/api/images/monsters/bearded-devil.png',
+    url: '/monsters/bearded-devil'
+  },
+  {
+    index: 'behir',
+    favorite: false,
+    name: 'Behir',
+    size: 'Huge',
+    type: 'monstrosity',
+    alignment: 'neutral evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 17
+      }
+    ],
+    hit_points: 168,
+    speed: {
+      walk: '50 ft.',
+      climb: '40 ft.'
+    },
+    strength: 23,
+    dexterity: 16,
+    constitution: 18,
+    intelligence: 7,
+    wisdom: 14,
+    charisma: 12,
+    senses: {
+      darkvision: '90 ft.',
+      passive_perception: 16
+    },
+    challenge_rating: 11,
+    image: '/api/images/monsters/behir.png',
+    url: '/monsters/behir'
+  },
+  {
+    index: 'berserker',
+    favorite: false,
+    name: 'Berserker',
+    size: 'Medium',
+    type: 'humanoid',
+    alignment: 'any chaotic alignment',
+    armor_class: [
+      {
+        type: 'armor',
+        value: 13,
+        armor: [
+          {
+            index: 'hide-armor',
+            name: 'Hide Armor',
+            url: '/api/2014/equipment/hide-armor'
+          }
+        ]
+      }
+    ],
+    hit_points: 67,
+    speed: {
+      walk: '30 ft.'
+    },
+    strength: 16,
+    dexterity: 12,
+    constitution: 17,
+    intelligence: 9,
+    wisdom: 11,
+    charisma: 9,
+    senses: {
+      passive_perception: 10
+    },
+    challenge_rating: 2,
+    image: '/api/images/monsters/berserker.png',
+    url: '/monsters/berserker'
+  },
+  {
+    index: 'black-bear',
+    favorite: false,
+    name: 'Black Bear',
+    size: 'Medium',
+    type: 'beast',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 11
+      }
+    ],
+    hit_points: 19,
+    speed: {
+      walk: '40 ft.',
+      climb: '30 ft.'
+    },
+    strength: 15,
+    dexterity: 10,
+    constitution: 14,
+    intelligence: 2,
+    wisdom: 12,
+    charisma: 7,
+    senses: {
+      passive_perception: 13
+    },
+    challenge_rating: 0.5,
+    image: '/api/images/monsters/black-bear.png',
+    url: '/monsters/black-bear'
+  },
+  {
+    index: 'black-dragon-wyrmling',
+    favorite: false,
+    name: 'Black Dragon Wyrmling',
+    size: 'Medium',
+    type: 'dragon',
+    alignment: 'chaotic evil',
+    armor_class: [
+      {
+        type: 'natural',
+        value: 17
+      }
+    ],
+    hit_points: 33,
+    speed: {
+      walk: '30 ft.',
+      fly: '60 ft.',
+      swim: '30 ft.'
+    },
+    strength: 15,
+    dexterity: 14,
+    constitution: 13,
+    intelligence: 10,
+    wisdom: 11,
+    charisma: 13,
+    senses: {
+      blindsight: '10 ft.',
+      darkvision: '60 ft.',
+      passive_perception: 14
+    },
+    challenge_rating: 2,
+    image: '/api/images/monsters/black-dragon-wyrmling.png',
+    url: '/monsters/black-dragon-wyrmling'
+  },
+  {
+    index: 'black-pudding',
+    favorite: false,
+    name: 'Black Pudding',
+    size: 'Large',
+    type: 'ooze',
+    alignment: 'unaligned',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 7
+      }
+    ],
+    hit_points: 85,
+    speed: {
+      walk: '20 ft.',
+      climb: '20 ft.'
+    },
+    strength: 16,
+    dexterity: 5,
+    constitution: 16,
+    intelligence: 1,
+    wisdom: 6,
+    charisma: 1,
+    senses: {
+      blindsight: '60 ft. (blind beyond this radius)',
+      passive_perception: 8
+    },
+    challenge_rating: 4,
+    image: '/api/images/monsters/black-pudding.png',
+    url: '/monsters/black-pudding'
+  },
+  {
+    index: 'blink-dog',
+    favorite: false,
+    name: 'Blink Dog',
+    size: 'Medium',
+    type: 'fey',
+    alignment: 'lawful good',
+    armor_class: [
+      {
+        type: 'dex',
+        value: 13
+      }
+    ],
+    hit_points: 22,
+    speed: {
+      walk: '40 ft.'
+    },
+    strength: 12,
+    dexterity: 17,
+    constitution: 12,
+    intelligence: 10,
+    wisdom: 13,
+    charisma: 11,
+    senses: {
+      passive_perception: 10
+    },
+    challenge_rating: 0.25,
+    image: '/api/images/monsters/blink-dog.png',
+    url: '/monsters/blink-dog'
+  }
+]);
+	print('Seed completed.');
+} else {
+	print(`Collection '${collectionName}' already has ${count} documents. Skipping seed.`);
+}
+
+// ============================================
+// SEED POKEMON DATABASE
+// ============================================
+const pokeDbName = 'pokemon_db';
+const pokeCollectionName = 'pokemons';
+
+print(`\n=== Starting Pokemon DB seed ===`);
+const pokeDb = db.getSiblingDB(pokeDbName);
+print(`Switched to database: ${pokeDbName}`);
+
+// Create collection if missing
+if (!pokeDb.getCollectionNames().includes(pokeCollectionName)) {
+	print(`Creating collection: ${pokeCollectionName}`);
+	pokeDb.createCollection(pokeCollectionName);
+}
+
+// Ensure unique index on 'pokeId' field
+print(`Creating unique index on pokeId...`);
+pokeDb[pokeCollectionName].createIndex({ pokeId: 1 }, { unique: true });
+
+const pokeCount = pokeDb[pokeCollectionName].countDocuments();
+print(`Current document count: ${pokeCount}`);
+
+if (pokeCount === 0) {
+	print(`Seeding '${pokeCollectionName}' collection in '${pokeDbName}' database...`);
+	pokeDb[pokeCollectionName].insertMany([
+		{ pokeId: 1, name: "bulbasaur", types: ["grass","poison"], height: 7, weight: 69, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png", short: "Seed Pokémon" },
+		{ pokeId: 4, name: "charmander", types: ["fire"], height: 6, weight: 85, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png", short: "Lizard Pokémon" },
+		{ pokeId: 7, name: "squirtle", types: ["water"], height: 5, weight: 90, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png", short: "Tiny Turtle Pokémon" },
+		{ pokeId: 25, name: "pikachu", types: ["electric"], height: 4, weight: 60, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png", short: "Mouse Pokémon" },
+		{ pokeId: 39, name: "jigglypuff", types: ["normal","fairy"], height: 5, weight: 55, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png", short: "Balloon Pokémon" },
+		{ pokeId: 94, name: "gengar", types: ["ghost","poison"], height: 15, weight: 405, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png", short: "Shadow Pokémon" },
+		{ pokeId: 143, name: "snorlax", types: ["normal"], height: 21, weight: 4600, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png", short: "Sleeping Pokémon" },
+		{ pokeId: 150, name: "mewtwo", types: ["psychic"], height: 20, weight: 1220, sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png", short: "Genetic Pokémon" }
+	]);
+	print('✅ Pokemon seed completed - 8 Pokemon inserted.');
+} else {
+	print(`⏭️  Collection '${pokeCollectionName}' already has ${pokeCount} documents. Skipping pokemon seed.`);
+}
+print(`=== Pokemon DB seed finished ===\n`);
