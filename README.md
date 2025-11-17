@@ -84,6 +84,4 @@ cordova platform add android
 ```
 cordova build android --debug
 ```
-5. Instalar el apk generado en un emulador de android 
-
-Para probar la app de android instalar "blueberryAPI-v2.apk" (en apk_builds) en un dispositivo android emulado.
+5. Instalar el apk generado en un dispositivo android
